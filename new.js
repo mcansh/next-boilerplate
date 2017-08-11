@@ -57,6 +57,58 @@ function scaffold() {
     .then((packageJSON) => {
       console.log(`${chalk.dim('[2/4]')} 🌳  Creating basic architecture...`);
       fs.mkdirSync(path.join(process.cwd(), 'components'));
+      fs.mkdirSync(path.join(process.cwd(), 'pages'));
+      const indexPgae = `
+import React from 'react';
+
+const Index = () => (
+  <div>
+    <h1>${packageJSON.name}</h1>
+  </div>
+);
+
+export default Index;
+      `.trim();
+
+      const metaComponent = `
+import React from 'react';
+import { Head } from 'next/document';
+
+const Meta = () => (
+  <Head>
+    <title>${packageJSON.name}</title>
+    <meta charSet="utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+  </Head>
+);
+
+export default Meta;
+      `.trim();
+
+      const documentLayout = `
+import React from 'react';
+import Document, { Main, NextScript } from 'next/document';
+import Meta from '../components/Meta';
+
+class Page extends Document {
+  render() {
+    return (
+      <html lang="en">
+        <Meta />
+        <body>
+          <Main />
+          <NextScript />
+        </body>
+      </html>
+    );
+  }
+}
+
+export default Page;
+      `.trim();
+      fs.writeFileSync(path.join(process.cwd(), 'pages', '_document.js'), documentLayout);
+      fs.writeFileSync(path.join(process.cwd(), 'pages', 'index.js'), indexPgae);
+      fs.writeFileSync(path.join(process.cwd(), 'components', 'Meta.js'), metaComponent);
       return packageJSON;
     })
     .then(() => {
