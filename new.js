@@ -1,37 +1,55 @@
 #!/usr/bin/env node
 const fs = require('fs');
-const path = require('path');
-const program = require('commander');
 const chalk = require('chalk');
-const packageJSON = require('./package.json');
+const path = require('path');
+const spawn = require('./utils/exec').spawn;
 
 function scaffold() {
-  return Promise.resolve().then(() => {
-    if (!packageJSON.devDependencies) {
-      packageJSON.devDependencies = {};
-    }
-    if (!packageJSON.scripts) {
-      packageJSON.scripts = {};
-    }
-    if (!packageJSON.scripts.dev) {
-      packageJSON.scripts.dev = 'next';
-    }
-    if (!packageJSON.scripts.build) {
-      packageJSON.scripts.build = 'next build';
-    }
-    if (!packageJSON.scripts.start) {
-      packageJSON.scripts.publish = 'next start';
-    }
-    fs.writeFileSync('package.json', JSON.stringify(packageJSON, null, '\t'));
-    return packageJSON;
-  })
+  return Promise.resolve()
     .then(() => {
-      console.log(`${chalk.dim('[2/3]')} 🌳  Creating basic architecture...`);
+      // eslint-disable-next-line global-require, import/no-dynamic-require
+      const packageJSON = require(path.join(process.cwd(), 'package.json'));
+      if (!packageJSON.devDependencies) {
+        packageJSON.devDependencies = {};
+      }
+      if (!packageJSON.devDependencies.eslint) {
+        packageJSON.devDependencies.eslint = 'latest';
+      }
+      if (!packageJSON.devDependencies['eslint-config-airbnb']) {
+        packageJSON.devDependencies['eslint-config-airbnb'] = 'latest';
+      }
+      if (!packageJSON.devDependencies['eslint-plugin-import']) {
+        packageJSON.devDependencies['eslint-plugin-import'] = 'latest';
+      }
+      if (!packageJSON.devDependencies['eslint-plugin-jsx-a11y']) {
+        packageJSON.devDependencies['eslint-plugin-jsx-a11y'] = 'latest';
+      }
+      if (!packageJSON.devDependencies['eslint-plugin-react']) {
+        packageJSON.devDependencies['eslint-plugin-react'] = 'latest';
+      }
+      if (!packageJSON.scripts) {
+        packageJSON.scripts = {};
+      }
+      if (!packageJSON.scripts.dev) {
+        packageJSON.scripts.dev = 'next';
+      }
+      if (!packageJSON.scripts.build) {
+        packageJSON.scripts.build = 'next build';
+      }
+      if (!packageJSON.scripts.start) {
+        packageJSON.scripts.publish = 'next start';
+      }
+      fs.writeFileSync('package.json', JSON.stringify(packageJSON, null, '\t'));
+      return packageJSON;
+    })
+    .then((packageJSON) => {
+      console.log(`${chalk.dim('[3/4]')} 🌳  Creating basic architecture...`);
+      fs.mkdirSync(path.join(process.cwd(), 'components'));
       return packageJSON;
     })
     .then(() => {
-      console.log(`${chalk.dim('[3/3]')} 📜  Creating default .gitignore...`);
-      const gitignore = path.join(process.cwd(), '.gitignore');
+      console.log(`${chalk.dim('[4/4]')} 📜  Creating default .gitignore...`);
+      const gitignore = './.gitignore';
       if (!fs.existsSync(gitignore)) {
         const DEFAULT_GITIGNORE = `
 node_modules
@@ -43,12 +61,16 @@ node_modules
     });
 }
 
-
 Promise.resolve()
   .then(() => {
-    console.log(`${chalk.dim('[1/3]')} 📦  Creating package.json...`);
+    console.log(`${chalk.dim('[1/4]')} 📦  Creating package.json...`);
+    return spawn('yarn', ['init']);
   })
-  .then(program.template = scaffold)
+  .then(scaffold)
+  .then(() => {
+    console.log(`${chalk.dim('[2/4]')} 📦  Installing packages...`);
+    return spawn('yarn', ['install']);
+  })
   .then(() => {
     console.log(`${chalk.green('Success 🎉 ')} App initialized`);
     process.exit(0);
