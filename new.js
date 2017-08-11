@@ -119,6 +119,7 @@ export default Page;
 node_modules
 *.log
 .DS_Store
+.next
         `.trim();
         fs.writeFileSync(gitignore, DEFAULT_GITIGNORE);
       }
