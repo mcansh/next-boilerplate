@@ -9,6 +9,18 @@ function scaffold() {
     .then(() => {
       // eslint-disable-next-line global-require, import/no-dynamic-require
       const packageJSON = require(path.join(process.cwd(), 'package.json'));
+      if (!packageJSON.dependencies) {
+        packageJSON.dependencies = {};
+      }
+      if (!packageJSON.dependencies.next) {
+        packageJSON.dependencies.next = 'latest';
+      }
+      if (!packageJSON.dependencies.react) {
+        packageJSON.dependencies.react = 'latest';
+      }
+      if (!packageJSON.dependencies['react-dom']) {
+        packageJSON.dependencies['react-dom'] = 'latest';
+      }
       if (!packageJSON.devDependencies) {
         packageJSON.devDependencies = {};
       }
