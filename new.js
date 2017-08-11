@@ -43,12 +43,12 @@ function scaffold() {
       return packageJSON;
     })
     .then((packageJSON) => {
-      console.log(`${chalk.dim('[3/4]')} 🌳  Creating basic architecture...`);
+      console.log(`${chalk.dim('[2/4]')} 🌳  Creating basic architecture...`);
       fs.mkdirSync(path.join(process.cwd(), 'components'));
       return packageJSON;
     })
     .then(() => {
-      console.log(`${chalk.dim('[4/4]')} 📜  Creating default .gitignore...`);
+      console.log(`${chalk.dim('[3/4]')} 📜  Creating default .gitignore...`);
       const gitignore = './.gitignore';
       if (!fs.existsSync(gitignore)) {
         const DEFAULT_GITIGNORE = `
@@ -68,7 +68,7 @@ Promise.resolve()
   })
   .then(scaffold)
   .then(() => {
-    console.log(`${chalk.dim('[2/4]')} 📦  Installing packages...`);
+    console.log(`${chalk.dim('[4/4]')} 📦  Installing packages...`);
     return spawn('yarn', ['install']);
   })
   .then(() => {
