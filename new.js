@@ -75,11 +75,13 @@ import React from 'react';
 import { Head } from 'next/document';
 
 const Meta = () => (
-  <Head>
-    <title>${packageJSON.name}</title>
-    <meta charSet="utf-8" />
-    <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-  </Head>
+  <div>
+    <Head>
+      <title>${packageJSON.name}</title>
+      <meta charSet="utf-8" />
+      <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+    </Head>
+  </div>
 );
 
 export default Meta;
