@@ -141,11 +141,11 @@ Promise.resolve()
     return spawn('yarn', ['install']);
   })
   .then(() => {
-    console.log(`${chalk.green('Success 🎉 ')} App initialized`);
+    console.log(`${chalk.green('success 🎉 ')} App initialized`);
     process.exit(0);
   })
   .catch((err) => {
-    console.log(`${chalk.red('Error ⛔ ')} Error while initializing App`);
+    console.log(`${chalk.red('error ⛔ ')} Error while initializing App`);
     console.log((err || {}).body || err);
     process.exit(1);
   });
