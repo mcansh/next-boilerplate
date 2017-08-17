@@ -73,6 +73,7 @@ const Index = () => (
 export default Index;
       `.trim();
 
+      fs.mkdirSync(path.join(process.cwd(), 'layouts'));
       const metaComponent = `
 import React from 'react';
 import Head from 'next/head';
@@ -90,26 +91,26 @@ export default Meta;
 
       const documentLayout = `
 import React from 'react';
-import Document, { Main, NextScript } from 'next/document';
+import PropTypes from 'prop-types';
 import Meta from '../components/Meta';
 
-class Page extends Document {
-  render() {
-    return (
-      <html lang="en">
-        <Meta />
-        <body>
-          <Main />
-          <NextScript />
-        </body>
-      </html>
-    );
-  }
-}
+const Document = ({ children }) => (
+  <div>
+    <Meta />
+    <div>
+      {children}
+    </div>
+  </div>
+);
 
-export default Page;
+Document.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+export default Document;
       `.trim();
-      fs.writeFileSync(path.join(process.cwd(), 'pages', '_document.js'), documentLayout);
+      `.trim();
+      fs.writeFileSync(path.join(process.cwd(), 'layouts', 'Document.js'), documentLayout);
       fs.writeFileSync(path.join(process.cwd(), 'pages', 'index.js'), indexPgae);
       fs.writeFileSync(path.join(process.cwd(), 'components', 'Meta.js'), metaComponent);
       return packageJSON;
