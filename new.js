@@ -61,18 +61,6 @@ function scaffold() {
       console.log(`${chalk.dim('[2/4]')} 🌳  Creating basic architecture...`);
       fs.mkdirSync(path.join(process.cwd(), 'components'));
       fs.mkdirSync(path.join(process.cwd(), 'pages'));
-      const indexPgae = `
-import React from 'react';
-
-const Index = () => (
-  <div>
-    <h1>${packageJSON.name}</h1>
-  </div>
-);
-
-export default Index;
-      `.trim();
-
       fs.mkdirSync(path.join(process.cwd(), 'layouts'));
       const metaComponent = `
 import React from 'react';
@@ -109,6 +97,18 @@ Document.propTypes = {
 
 export default Document;
       `.trim();
+
+      const indexPgae = `
+import React from 'react';
+import Document from '../layouts/Document';
+
+const Index = () => (
+  <Document>
+    <h1>${packageJSON.name}</h1>
+  </Document>
+);
+
+export default Index;
       `.trim();
       fs.writeFileSync(path.join(process.cwd(), 'layouts', 'Document.js'), documentLayout);
       fs.writeFileSync(path.join(process.cwd(), 'pages', 'index.js'), indexPgae);
