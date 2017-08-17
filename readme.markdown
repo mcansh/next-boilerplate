@@ -15,3 +15,6 @@ Quickly start a new nextjs project
   mkdir my-new-app && cd my-new-app
   create-nextjs-app
 ```
+
+## Example
+[mcansh/create-nextjs-app-example](https://github.com/mcansh/create-nextjs-app-example)
