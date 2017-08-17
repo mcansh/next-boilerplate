@@ -21,6 +21,9 @@ function scaffold() {
       if (!packageJSON.dependencies['react-dom']) {
         packageJSON.dependencies['react-dom'] = 'latest';
       }
+      if (!packageJSON.dependencies['prop-types']) {
+        packageJSON.dependencies['prop-types'] = 'latest';
+      }
       if (!packageJSON.devDependencies) {
         packageJSON.devDependencies = {};
       }
