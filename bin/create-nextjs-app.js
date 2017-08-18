@@ -4,56 +4,67 @@ const { red, green, dim } = require('chalk');
 const path = require('path');
 const spawn = require('../utils/exec').spawn;
 
+const addDependencies = (packageJSON) => {
+  if (!packageJSON.dependencies) {
+    packageJSON.dependencies = {};
+  }
+  if (!packageJSON.dependencies.next) {
+    packageJSON.dependencies.next = 'latest';
+  }
+  if (!packageJSON.dependencies.react) {
+    packageJSON.dependencies.react = 'latest';
+  }
+  if (!packageJSON.dependencies['react-dom']) {
+    packageJSON.dependencies['react-dom'] = 'latest';
+  }
+  if (!packageJSON.dependencies['prop-types']) {
+    packageJSON.dependencies['prop-types'] = 'latest';
+  }
+};
+
+const addDevDependencies = (packageJSON) => {
+  if (!packageJSON.devDependencies) {
+    packageJSON.devDependencies = {};
+  }
+  if (!packageJSON.devDependencies.eslint) {
+    packageJSON.devDependencies.eslint = 'latest';
+  }
+  if (!packageJSON.devDependencies['eslint-config-airbnb']) {
+    packageJSON.devDependencies['eslint-config-airbnb'] = 'latest';
+  }
+  if (!packageJSON.devDependencies['eslint-plugin-import']) {
+    packageJSON.devDependencies['eslint-plugin-import'] = 'latest';
+  }
+  if (!packageJSON.devDependencies['eslint-plugin-jsx-a11y']) {
+    packageJSON.devDependencies['eslint-plugin-jsx-a11y'] = 'latest';
+  }
+  if (!packageJSON.devDependencies['eslint-plugin-react']) {
+    packageJSON.devDependencies['eslint-plugin-react'] = 'latest';
+  }
+};
+
+const addScripts = (packageJSON) => {
+  if (!packageJSON.scripts) {
+    packageJSON.scripts = {};
+  }
+  if (!packageJSON.scripts.dev) {
+    packageJSON.scripts.dev = 'next';
+  }
+  if (!packageJSON.scripts.build) {
+    packageJSON.scripts.build = 'next build';
+  }
+  if (!packageJSON.scripts.start) {
+    packageJSON.scripts.start = 'next start';
+  }
+};
 function scaffold() {
   return Promise.resolve()
     .then(() => {
       // eslint-disable-next-line global-require, import/no-dynamic-require
       const packageJSON = require(path.join(process.cwd(), 'package.json'));
-      if (!packageJSON.dependencies) {
-        packageJSON.dependencies = {};
-      }
-      if (!packageJSON.dependencies.next) {
-        packageJSON.dependencies.next = 'latest';
-      }
-      if (!packageJSON.dependencies.react) {
-        packageJSON.dependencies.react = 'latest';
-      }
-      if (!packageJSON.dependencies['react-dom']) {
-        packageJSON.dependencies['react-dom'] = 'latest';
-      }
-      if (!packageJSON.dependencies['prop-types']) {
-        packageJSON.dependencies['prop-types'] = 'latest';
-      }
-      if (!packageJSON.devDependencies) {
-        packageJSON.devDependencies = {};
-      }
-      if (!packageJSON.devDependencies.eslint) {
-        packageJSON.devDependencies.eslint = 'latest';
-      }
-      if (!packageJSON.devDependencies['eslint-config-airbnb']) {
-        packageJSON.devDependencies['eslint-config-airbnb'] = 'latest';
-      }
-      if (!packageJSON.devDependencies['eslint-plugin-import']) {
-        packageJSON.devDependencies['eslint-plugin-import'] = 'latest';
-      }
-      if (!packageJSON.devDependencies['eslint-plugin-jsx-a11y']) {
-        packageJSON.devDependencies['eslint-plugin-jsx-a11y'] = 'latest';
-      }
-      if (!packageJSON.devDependencies['eslint-plugin-react']) {
-        packageJSON.devDependencies['eslint-plugin-react'] = 'latest';
-      }
-      if (!packageJSON.scripts) {
-        packageJSON.scripts = {};
-      }
-      if (!packageJSON.scripts.dev) {
-        packageJSON.scripts.dev = 'next';
-      }
-      if (!packageJSON.scripts.build) {
-        packageJSON.scripts.build = 'next build';
-      }
-      if (!packageJSON.scripts.start) {
-        packageJSON.scripts.publish = 'next start';
-      }
+      addDependencies(packageJSON);
+      addDevDependencies(packageJSON);
+      addScripts(packageJSON);
       fs.writeFileSync('package.json', JSON.stringify(packageJSON, null, '\t'));
       return packageJSON;
     })
