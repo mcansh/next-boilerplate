@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const fs = require('fs');
-const chalk = require('chalk');
+const { red, green, dim } = require('chalk');
 const path = require('path');
 const spawn = require('../utils/exec').spawn;
 
@@ -58,7 +58,7 @@ function scaffold() {
       return packageJSON;
     })
     .then((packageJSON) => {
-      console.log(`${chalk.dim('[2/4]')} 🌳  Creating basic architecture...`);
+      console.log(`${dim('[2/4]')} 🌳  Creating basic architecture...`);
       fs.mkdirSync(path.join(process.cwd(), 'components'));
       fs.mkdirSync(path.join(process.cwd(), 'pages'));
       fs.mkdirSync(path.join(process.cwd(), 'layouts'));
@@ -116,7 +116,7 @@ export default Index;
       return packageJSON;
     })
     .then(() => {
-      console.log(`${chalk.dim('[3/4]')} 📜  Creating default .gitignore...`);
+      console.log(`${dim('[3/4]')} 📜  Creating default .gitignore...`);
       const gitignore = './.gitignore';
       if (!fs.existsSync(gitignore)) {
         const DEFAULT_GITIGNORE = `
@@ -132,20 +132,20 @@ node_modules
 
 Promise.resolve()
   .then(() => {
-    console.log(`${chalk.dim('[1/4]')} 📦  Creating package.json...`);
+    console.log(`${dim('[1/4]')} 📦  Creating package.json...`);
     return spawn('yarn', ['init']);
   })
   .then(scaffold)
   .then(() => {
-    console.log(`${chalk.dim('[4/4]')} 📦  Installing packages...`);
+    console.log(`${dim('[4/4]')} 📦  Installing packages...`);
     return spawn('yarn', ['install']);
   })
   .then(() => {
-    console.log(`${chalk.green('success 🎉 ')} App initialized`);
+    console.log(`${green('success 🎉 ')} App initialized`);
     process.exit(0);
   })
   .catch((err) => {
-    console.log(`${chalk.red('error ⛔ ')} Error while initializing App`);
+    console.log(`${red('error ⛔ ')} Error while initializing App`);
     console.log((err || {}).body || err);
     process.exit(1);
   });
