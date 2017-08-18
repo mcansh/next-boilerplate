@@ -2,7 +2,7 @@
 const fs = require('fs');
 const chalk = require('chalk');
 const path = require('path');
-const spawn = require('./utils/exec').spawn;
+const spawn = require('../utils/exec').spawn;
 
 function scaffold() {
   return Promise.resolve()

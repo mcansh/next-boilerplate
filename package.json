@@ -6,7 +6,7 @@
   "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh)",
   "repository": "mcansh/create-nextjs-app",
   "bin": {
-    "create-nextjs-app": "new.js"
+    "create-nextjs-app": "./bin/create-nextjs-app.js"
   },
   "dependencies": {
     "chalk": "^2.1.0"
