@@ -57,38 +57,26 @@ const addScripts = (packageJSON) => {
     packageJSON.scripts.start = 'next start';
   }
 };
-function scaffold() {
-  return Promise.resolve()
-    .then(() => {
-      // eslint-disable-next-line global-require, import/no-dynamic-require
-      const packageJSON = require(path.join(process.cwd(), 'package.json'));
-      addDependencies(packageJSON);
-      addDevDependencies(packageJSON);
-      addScripts(packageJSON);
-      fs.writeFileSync('package.json', JSON.stringify(packageJSON, null, '\t'));
-      return packageJSON;
-    })
-    .then((packageJSON) => {
-      console.log(`${dim('[2/4]')} 🌳  Creating basic architecture...`);
-      fs.mkdirSync(path.join(process.cwd(), 'components'));
-      fs.mkdirSync(path.join(process.cwd(), 'pages'));
-      fs.mkdirSync(path.join(process.cwd(), 'layouts'));
-      const metaComponent = `
+
+const metaComponent = packageJSON => (
+  `
 import React from 'react';
 import Head from 'next/head';
 
 const Meta = () => (
-    <Head>
-      <title>${packageJSON.name}</title>
-      <meta charSet="utf-8" />
-      <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-    </Head>
+  <Head>
+    <title>${packageJSON.name}</title>
+    <meta charSet="utf-8" />
+    <meta name="viewport" content="initial-scale=1.0,   width=device-width" />
+  </Head>
 );
 
 export default Meta;
-      `.trim();
+  `.trim()
+);
 
-      const documentLayout = `
+const documentLayout = (
+  `
 import React from 'react';
 import PropTypes from 'prop-types';
 import Meta from '../components/Meta';
@@ -107,9 +95,11 @@ Document.propTypes = {
 };
 
 export default Document;
-      `.trim();
+  `.trim()
+);
 
-      const indexPgae = `
+const indexPage = packageJSON => (
+  `
 import React from 'react';
 import Document from '../layouts/Document';
 
@@ -120,22 +110,41 @@ const Index = () => (
 );
 
 export default Index;
-      `.trim();
+  `.trim()
+);
+
+const DEFAULT_GITIGNORE = `
+node_modules
+*.log
+.DS_Store
+.next
+`.trim();
+
+function scaffold() {
+  return Promise.resolve()
+    .then(() => {
+      // eslint-disable-next-line global-require, import/no-dynamic-require
+      const packageJSON = require(path.join(process.cwd(), 'package.json'));
+      addDependencies(packageJSON);
+      addDevDependencies(packageJSON);
+      addScripts(packageJSON);
+      fs.writeFileSync('package.json', JSON.stringify(packageJSON, null, '\t'));
+      return packageJSON;
+    })
+    .then((packageJSON) => {
+      console.log(`${dim('[2/4]')} 🌳  Creating basic architecture...`);
+      fs.mkdirSync(path.join(process.cwd(), 'components'));
+      fs.mkdirSync(path.join(process.cwd(), 'layouts'));
+      fs.mkdirSync(path.join(process.cwd(), 'pages'));
+      fs.writeFileSync(path.join(process.cwd(), 'components', 'Meta.js'), metaComponent(packageJSON));
       fs.writeFileSync(path.join(process.cwd(), 'layouts', 'Document.js'), documentLayout);
-      fs.writeFileSync(path.join(process.cwd(), 'pages', 'index.js'), indexPgae);
-      fs.writeFileSync(path.join(process.cwd(), 'components', 'Meta.js'), metaComponent);
+      fs.writeFileSync(path.join(process.cwd(), 'pages', 'index.js'), indexPage(packageJSON));
       return packageJSON;
     })
     .then(() => {
       console.log(`${dim('[3/4]')} 📜  Creating default .gitignore...`);
       const gitignore = './.gitignore';
       if (!fs.existsSync(gitignore)) {
-        const DEFAULT_GITIGNORE = `
-node_modules
-*.log
-.DS_Store
-.next
-        `.trim();
         fs.writeFileSync(gitignore, DEFAULT_GITIGNORE);
       }
     });
