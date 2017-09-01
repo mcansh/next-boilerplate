@@ -17,7 +17,7 @@ const generatePkg = async () => {
     await process.chdir(flags.new);
     console.log(process.cwd());
   }
-  console.log(`${chalk.dim('[1/4]')} 📦  Creating package.json...`);
+  console.log(`${dim('[1/4]')} 📦  Creating package.json...`);
   await spawn('yarn', ['init']);
   // eslint-disable-next-line global-require, import/no-dynamic-require
   const pkg = require(join(process.cwd(), 'package.json'));
@@ -73,7 +73,7 @@ const generatePkg = async () => {
 const scaffold = () => {
   // eslint-disable-next-line global-require, import/no-dynamic-require
   const pkg = require(join(process.cwd(), 'package.json'));
-  console.log(`${chalk.dim('[2/4]')} 🌳  Creating basic architecture...`);
+  console.log(`${dim('[2/4]')} 🌳  Creating basic architecture...`);
   fs.mkdirSync(join(process.cwd(), 'components'));
   fs.mkdirSync(join(process.cwd(), 'pages'));
   fs.mkdirSync(join(process.cwd(), 'layouts'));
@@ -131,7 +131,7 @@ export default Index;
 };
 
 const generateGitignore = () => {
-  console.log(`${chalk.dim('[3/4]')} 📜  Creating default .gitignore...`);
+  console.log(`${dim('[3/4]')} 📜  Creating default .gitignore...`);
   const gitignore = './.gitignore';
   if (!fs.existsSync(gitignore)) {
     const DEFAULT_GITIGNORE = `
@@ -148,7 +148,7 @@ const generateProject = async () => {
   await generatePkg();
   await scaffold();
   await generateGitignore();
-  console.log(`${chalk.dim('[4/4]')} 📦  Installing packages...`);
+  console.log(`${dim('[4/4]')} 📦  Installing packages...`);
   await spawn('yarn', ['install']);
 };
 
