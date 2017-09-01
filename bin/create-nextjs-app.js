@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const fs = require('fs');
-const chalk = require('chalk');
+const { green, dim } = require('chalk');
 const { join } = require('path');
 const args = require('args');
 const spawn = require('../utils/exec').spawn;
