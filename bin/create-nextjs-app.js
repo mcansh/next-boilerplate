@@ -6,7 +6,8 @@ const args = require('args');
 const spawn = require('../utils/exec').spawn;
 
 args
-  .option('new', 'Create a new directory and run the initializer');
+  .option('new', 'Create a new directory and run the initializer')
+  .option('skipInstall', 'Skips installation of dependencies')
 
 
 const flags = args.parse(process.argv);
@@ -15,7 +16,6 @@ const generatePkg = async () => {
   if (flags.new) {
     await spawn('mkdir', [flags.new]);
     await process.chdir(flags.new);
-    console.log(process.cwd());
   }
   console.log(`${dim('[1/4]')} 📦  Creating package.json...`);
   await spawn('yarn', ['init']);
@@ -155,6 +155,7 @@ const generateProject = async () => {
   await generateGitignore();
   await installDependencies();
   console.log(`${green('success')} 🎉  App initialized!`);
+  if (!flags.skipInstall) await installDependencies();
 };
 
 generateProject();
