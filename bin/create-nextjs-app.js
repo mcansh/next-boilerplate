@@ -3,6 +3,7 @@ const fs = require('fs');
 const { green, dim } = require('chalk');
 const { join } = require('path');
 const args = require('args');
+const clipboardy = require('clipboardy');
 const spawn = require('../utils/exec').spawn;
 
 args
@@ -154,15 +155,18 @@ const installDependencies = async () => {
   }
 };
 
+const congrats = async () => {
+  await console.log(`${green('success')} 🎉  App initialized!`);
+  await clipboardy.writeSync(`cd ${process.cwd()} && npm run dev`);
+  await console.log('run the command copied to the clipboard to get go into your new app');
 };
 
 const generateProject = async () => {
   await generatePkg();
   await scaffold();
   await generateGitignore();
-  await installDependencies();
-  console.log(`${green('success')} 🎉  App initialized!`);
   if (!flags.skipInstall) await installDependencies();
+  await congrats();
 };
 
 generateProject();
