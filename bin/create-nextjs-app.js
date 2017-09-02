@@ -157,8 +157,10 @@ const installDependencies = async () => {
 
 const congrats = async () => {
   await console.log(`${green('success')} 🎉  App initialized!`);
-  await clipboardy.writeSync(`cd ${process.cwd()} && npm run dev`);
-  await console.log('run the command copied to the clipboard to get go into your new app');
+  if (!flags.s) {
+    await clipboardy.writeSync(`cd ${process.cwd()} && npm run dev`);
+    await console.log('run the command copied to the clipboard to get go into your new app');
+  }
 };
 
 const generateProject = async () => {
