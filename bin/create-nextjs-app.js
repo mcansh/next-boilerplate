@@ -144,12 +144,17 @@ const generateGitignore = () => {
   }
 };
 
+const installDependencies = () => {
+  console.log(`${dim('[4/4]')} 📦  Installing packages...`);
+  spawn('yarn', ['install']);
+};
+
 const generateProject = async () => {
   await generatePkg();
   await scaffold();
   await generateGitignore();
-  console.log(`${dim('[4/4]')} 📦  Installing packages...`);
-  await spawn('yarn', ['install']);
+  await installDependencies();
+  console.log(`${green('success')} 🎉  App initialized!`);
 };
 
 generateProject();
