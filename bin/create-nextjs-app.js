@@ -8,6 +8,7 @@ const spawn = require('../utils/exec').spawn;
 args
   .option('new', 'Create a new directory and run the initializer')
   .option('skipInstall', 'Skips installation of dependencies')
+  .option('useNpm', 'Use npm instead of yarn');
 
 
 const flags = args.parse(process.argv);
@@ -144,9 +145,15 @@ const generateGitignore = () => {
   }
 };
 
-const installDependencies = () => {
+const installDependencies = async () => {
   console.log(`${dim('[4/4]')} 📦  Installing packages...`);
-  spawn('yarn', ['install']);
+  if (flags.useNpm) {
+    await spawn('npm', ['install']);
+  } else {
+    await spawn('yarn', ['install']);
+  }
+};
+
 };
 
 const generateProject = async () => {
