@@ -5,6 +5,9 @@
   "license": "MIT",
   "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh)",
   "repository": "mcansh/create-nextjs-app",
+  "scripts": {
+    "test": "eslint ./"
+  },
   "bin": {
     "create-nextjs-app": "./bin/create-nextjs-app.js"
   },
