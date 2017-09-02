@@ -1,82 +1,100 @@
 #!/usr/bin/env node
 const fs = require('fs');
-const { red, green, dim } = require('chalk');
-const path = require('path');
+const { green, dim } = require('chalk');
+const { join } = require('path');
+const args = require('args');
+const clipboardy = require('clipboardy');
 const spawn = require('../utils/exec').spawn;
 
-const addDependencies = (packageJSON) => {
-  if (!packageJSON.dependencies) {
-    packageJSON.dependencies = {};
+args
+  .option('new', 'Create a new directory and run the initializer')
+  .option('skipInstall', 'Skips installation of dependencies')
+  .option('npm', 'Use npm instead of yarn');
+
+
+const flags = args.parse(process.argv);
+
+const generatePkg = async () => {
+  if (flags.new) {
+    await spawn('mkdir', [flags.new]);
+    await process.chdir(flags.new);
   }
-  if (!packageJSON.dependencies.next) {
-    packageJSON.dependencies.next = 'latest';
+  console.log(`${dim('[1/4]')} 📦  Creating package.json...`);
+  await spawn('yarn', ['init']);
+  // eslint-disable-next-line global-require, import/no-dynamic-require
+  const pkg = require(join(process.cwd(), 'package.json'));
+  if (!pkg.dependencies) {
+    pkg.dependencies = {};
   }
-  if (!packageJSON.dependencies.react) {
-    packageJSON.dependencies.react = 'latest';
+  if (!pkg.dependencies.next) {
+    pkg.dependencies.next = 'latest';
   }
-  if (!packageJSON.dependencies['react-dom']) {
-    packageJSON.dependencies['react-dom'] = 'latest';
+  if (!pkg.dependencies.react) {
+    pkg.dependencies.react = 'latest';
   }
-  if (!packageJSON.dependencies['prop-types']) {
-    packageJSON.dependencies['prop-types'] = 'latest';
+  if (!pkg.dependencies['react-dom']) {
+    pkg.dependencies['react-dom'] = 'latest';
   }
+  if (!pkg.dependencies['prop-types']) {
+    pkg.dependencies['prop-types'] = 'latest';
+  }
+  if (!pkg.devDependencies) {
+    pkg.devDependencies = {};
+  }
+  if (!pkg.devDependencies.eslint) {
+    pkg.devDependencies.eslint = 'latest';
+  }
+  if (!pkg.devDependencies['eslint-config-airbnb']) {
+    pkg.devDependencies['eslint-config-airbnb'] = 'latest';
+  }
+  if (!pkg.devDependencies['eslint-plugin-import']) {
+    pkg.devDependencies['eslint-plugin-import'] = 'latest';
+  }
+  if (!pkg.devDependencies['eslint-plugin-jsx-a11y']) {
+    pkg.devDependencies['eslint-plugin-jsx-a11y'] = 'latest';
+  }
+  if (!pkg.devDependencies['eslint-plugin-react']) {
+    pkg.devDependencies['eslint-plugin-react'] = 'latest';
+  }
+  if (!pkg.scripts) {
+    pkg.scripts = {};
+  }
+  if (!pkg.scripts.dev) {
+    pkg.scripts.dev = 'next';
+  }
+  if (!pkg.scripts.build) {
+    pkg.scripts.build = 'next build';
+  }
+  if (!pkg.scripts.start) {
+    pkg.scripts.publish = 'next start';
+  }
+  fs.writeFileSync('package.json', JSON.stringify(pkg, null, '\t'));
+  return pkg;
 };
 
-const addDevDependencies = (packageJSON) => {
-  if (!packageJSON.devDependencies) {
-    packageJSON.devDependencies = {};
-  }
-  if (!packageJSON.devDependencies.eslint) {
-    packageJSON.devDependencies.eslint = 'latest';
-  }
-  if (!packageJSON.devDependencies['eslint-config-airbnb']) {
-    packageJSON.devDependencies['eslint-config-airbnb'] = 'latest';
-  }
-  if (!packageJSON.devDependencies['eslint-plugin-import']) {
-    packageJSON.devDependencies['eslint-plugin-import'] = 'latest';
-  }
-  if (!packageJSON.devDependencies['eslint-plugin-jsx-a11y']) {
-    packageJSON.devDependencies['eslint-plugin-jsx-a11y'] = 'latest';
-  }
-  if (!packageJSON.devDependencies['eslint-plugin-react']) {
-    packageJSON.devDependencies['eslint-plugin-react'] = 'latest';
-  }
-};
-
-const addScripts = (packageJSON) => {
-  if (!packageJSON.scripts) {
-    packageJSON.scripts = {};
-  }
-  if (!packageJSON.scripts.dev) {
-    packageJSON.scripts.dev = 'next';
-  }
-  if (!packageJSON.scripts.build) {
-    packageJSON.scripts.build = 'next build';
-  }
-  if (!packageJSON.scripts.start) {
-    packageJSON.scripts.start = 'next start';
-  }
-};
-
-const metaComponent = packageJSON => (
-  `
+const scaffold = () => {
+  // eslint-disable-next-line global-require, import/no-dynamic-require
+  const pkg = require(join(process.cwd(), 'package.json'));
+  console.log(`${dim('[2/4]')} 🌳  Creating basic architecture...`);
+  fs.mkdirSync(join(process.cwd(), 'components'));
+  fs.mkdirSync(join(process.cwd(), 'pages'));
+  fs.mkdirSync(join(process.cwd(), 'layouts'));
+  const metaComponent = `
 import React from 'react';
 import Head from 'next/head';
 
 const Meta = () => (
-  <Head>
-    <title>${packageJSON.name}</title>
-    <meta charSet="utf-8" />
-    <meta name="viewport" content="initial-scale=1.0,   width=device-width" />
-  </Head>
+<Head>
+  <title>${pkg.name}</title>
+  <meta charSet="utf-8" />
+  <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+</Head>
 );
 
 export default Meta;
-  `.trim()
-);
+  `.trim();
 
-const documentLayout = (
-  `
+  const documentLayout = `
 import React from 'react';
 import PropTypes from 'prop-types';
 import Meta from '../components/Meta';
@@ -95,77 +113,62 @@ Document.propTypes = {
 };
 
 export default Document;
-  `.trim()
-);
+  `.trim();
 
-const indexPage = packageJSON => (
-  `
+  const indexPgae = `
 import React from 'react';
 import Document from '../layouts/Document';
 
 const Index = () => (
   <Document>
-    <h1>${packageJSON.name}</h1>
+    <h1>${pkg.name}</h1>
   </Document>
 );
 
 export default Index;
-  `.trim()
-);
+  `.trim();
+  fs.writeFileSync(join(process.cwd(), 'layouts', 'Document.js'), documentLayout);
+  fs.writeFileSync(join(process.cwd(), 'pages', 'index.js'), indexPgae);
+  fs.writeFileSync(join(process.cwd(), 'components', 'Meta.js'), metaComponent);
+};
 
-const DEFAULT_GITIGNORE = `
-node_modules
-*.log
-.DS_Store
-.next
-`.trim();
+const generateGitignore = () => {
+  console.log(`${dim('[3/4]')} 📜  Creating default .gitignore...`);
+  const gitignore = './.gitignore';
+  if (!fs.existsSync(gitignore)) {
+    const DEFAULT_GITIGNORE = `
+  node_modules
+  *.log
+  .DS_Store
+  .next
+    `.trim();
+    fs.writeFileSync(gitignore, DEFAULT_GITIGNORE);
+  }
+};
 
-function scaffold() {
-  return Promise.resolve()
-    .then(() => {
-      // eslint-disable-next-line global-require, import/no-dynamic-require
-      const packageJSON = require(path.join(process.cwd(), 'package.json'));
-      addDependencies(packageJSON);
-      addDevDependencies(packageJSON);
-      addScripts(packageJSON);
-      fs.writeFileSync('package.json', JSON.stringify(packageJSON, null, '\t'));
-      return packageJSON;
-    })
-    .then((packageJSON) => {
-      console.log(`${dim('[2/4]')} 🌳  Creating basic architecture...`);
-      fs.mkdirSync(path.join(process.cwd(), 'components'));
-      fs.mkdirSync(path.join(process.cwd(), 'layouts'));
-      fs.mkdirSync(path.join(process.cwd(), 'pages'));
-      fs.writeFileSync(path.join(process.cwd(), 'components', 'Meta.js'), metaComponent(packageJSON));
-      fs.writeFileSync(path.join(process.cwd(), 'layouts', 'Document.js'), documentLayout);
-      fs.writeFileSync(path.join(process.cwd(), 'pages', 'index.js'), indexPage(packageJSON));
-      return packageJSON;
-    })
-    .then(() => {
-      console.log(`${dim('[3/4]')} 📜  Creating default .gitignore...`);
-      const gitignore = './.gitignore';
-      if (!fs.existsSync(gitignore)) {
-        fs.writeFileSync(gitignore, DEFAULT_GITIGNORE);
-      }
-    });
-}
+const installDependencies = async () => {
+  console.log(`${dim('[4/4]')} 📦  Installing packages...`);
+  if (flags.npm) {
+    await spawn('npm', ['install']);
+  } else {
+    await spawn('yarn', ['install']);
+  }
+};
 
-Promise.resolve()
-  .then(() => {
-    console.log(`${dim('[1/4]')} 📦  Creating package.json...`);
-    return spawn('yarn', ['init']);
-  })
-  .then(scaffold)
-  .then(() => {
-    console.log(`${dim('[4/4]')} 📦  Installing packages...`);
-    return spawn('yarn', ['install']);
-  })
-  .then(() => {
-    console.log(`${green('success 🎉 ')} App initialized`);
-    process.exit(0);
-  })
-  .catch((err) => {
-    console.log(`${red('error ⛔ ')} Error while initializing App`);
-    console.log((err || {}).body || err);
-    process.exit(1);
-  });
+const congrats = async () => {
+  await console.log(`${green('success')} 🎉  App initialized!`);
+  if (!flags.s) {
+    await clipboardy.writeSync(`cd ${process.cwd()} && npm run dev`);
+    await console.log('run the command copied to the clipboard to get go into your new app');
+  }
+};
+
+const generateProject = async () => {
+  await generatePkg();
+  await scaffold();
+  await generateGitignore();
+  if (!flags.skipInstall) await installDependencies();
+  await congrats();
+};
+
+generateProject();
