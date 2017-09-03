@@ -4,7 +4,7 @@ const { green, dim } = require('chalk');
 const { join } = require('path');
 const args = require('args');
 const clipboardy = require('clipboardy');
-const spawn = require('../utils/exec').spawn;
+const { spawn } = require('../utils/exec');
 
 args
   .option('new', 'Create a new directory and run the initializer')
