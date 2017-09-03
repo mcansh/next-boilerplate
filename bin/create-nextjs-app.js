@@ -137,10 +137,10 @@ const generateGitignore = () => {
   const gitignore = './.gitignore';
   if (!fs.existsSync(gitignore)) {
     const DEFAULT_GITIGNORE = `
-  node_modules
-  *.log
-  .DS_Store
-  .next
+node_modules
+*.log
+.DS_Store
+.next
     `.trim();
     fs.writeFileSync(gitignore, DEFAULT_GITIGNORE);
   }
