@@ -66,7 +66,7 @@ const generatePkg = async () => {
     pkg.scripts.build = 'next build';
   }
   if (!pkg.scripts.start) {
-    pkg.scripts.publish = 'next start';
+    pkg.scripts.start = 'next start';
   }
   fs.writeFileSync('package.json', JSON.stringify(pkg, null, '\t'));
   return pkg;
