@@ -12,7 +12,7 @@
     "create-nextjs-app": "./bin/create-nextjs-app.js"
   },
   "dependencies": {
-    "args": "3.0.4",
+    "args": "3.0.5",
     "chalk": "2.1.0",
     "clipboardy": "^1.1.4"
   },
