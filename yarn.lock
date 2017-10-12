@@ -64,9 +64,9 @@ argparse@^1.0.7:
   dependencies:
     sprintf-js "~1.0.2"
 
-args@3.0.6:
-  version "3.0.6"
-  resolved "https://registry.yarnpkg.com/args/-/args-3.0.6.tgz#2c323409dd84ffeac97979bb70c7836bb8aafd4a"
+args@3.0.7:
+  version "3.0.7"
+  resolved "https://registry.yarnpkg.com/args/-/args-3.0.7.tgz#92b3dfe99c86b7051c6122853133099458fb624c"
   dependencies:
     camelcase "4.1.0"
     chalk "2.1.0"
