@@ -11,7 +11,6 @@ args
   .option('skipInstall', 'Skips installation of dependencies')
   .option('npm', 'Use npm instead of yarn');
 
-
 const flags = args.parse(process.argv);
 
 const generatePkg = async () => {
@@ -78,58 +77,69 @@ const scaffold = () => {
   console.log(`${dim('[2/4]')} 🌳  Creating basic architecture...`);
   fs.mkdirSync(join(process.cwd(), 'components'));
   fs.mkdirSync(join(process.cwd(), 'pages'));
-  fs.mkdirSync(join(process.cwd(), 'layouts'));
-  const metaComponent = `
+  const helloComponent = `
 import React from 'react';
-import Head from 'next/head';
 
-const Meta = () => (
-  <Head>
-    <title>${pkg.name}</title>
-    <meta charSet="utf-8" />
-    <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-  </Head>
+const Hello = () => (
+  <h1>${pkg.name}</h1>
 );
 
-export default Meta;
+export default Hello;
   `.trim();
 
   const documentLayout = `
 import React from 'react';
-import PropTypes from 'prop-types';
-import Meta from '../components/Meta';
+import Document, { Head, Main, NextScript } from 'next/document';
 
-const Document = ({ children }) => (
-  <div>
-    <Meta />
-    <div>
-      {children}
-    </div>
-  </div>
-);
+class Page extends Document {
+  render() {
+    return (
+      <html lang="en">
+        <Head>
+          <title>${pkg.name}</title>
+          <meta charSet="utf-8" />
+          <meta
+            name="viewport"
+            content="initial-scale=1.0, width=device-width, viewport-fit=cover"
+          />
+          <meta
+            name="description"
+            content="${pkg.description}"
+          />
+        </Head>
+        <body>
+          <Main />
+          <NextScript />
+        </body>
+      </html>
+    )
+  }
+}
 
-Document.propTypes = {
-  children: PropTypes.node.isRequired,
-};
-
-export default Document;
+export default Page;
   `.trim();
 
   const indexPgae = `
 import React from 'react';
-import Document from '../layouts/Document';
+import Hello from '../components/Hello';
 
 const Index = () => (
-  <Document>
-    <h1>${pkg.name}</h1>
-  </Document>
+  <div>
+    <Hello />
+    <style jsx global>{\`
+      * {
+        margin: 0;
+        box-sizing: border-box;
+      }
+    \`}</style>
+  </div>
 );
 
 export default Index;
   `.trim();
-  fs.writeFileSync(join(process.cwd(), 'layouts', 'Document.js'), documentLayout);
+  fs.writeFileSync(join(process.cwd(), 'pages', '_document.js'), documentLayout);
   fs.writeFileSync(join(process.cwd(), 'pages', 'index.js'), indexPgae);
-  fs.writeFileSync(join(process.cwd(), 'components', 'Meta.js'), metaComponent);
+  fs.writeFileSync(join(process.cwd(), 'components', 'Hello.js'), helloComponent);
 };
 
 const generateGitignore = () => {
