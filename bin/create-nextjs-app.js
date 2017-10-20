@@ -9,7 +9,8 @@ const { spawn } = require('../utils/exec');
 args
   .option('new', 'Create a new directory and run the initializer')
   .option('skipInstall', 'Skips installation of dependencies')
-  .option('npm', 'Use npm instead of yarn');
+  .option('npm', 'Use npm instead of yarn')
+  .option('skipEslint', "Don't install ESLint");
 
 const flags = args.parse(process.argv);
 
@@ -18,7 +19,7 @@ const generatePkg = async () => {
     await spawn('mkdir', [flags.new]);
     await process.chdir(flags.new);
   }
-  console.log(`${dim('[1/4]')} 📦  Creating package.json...`);
+  console.log(`${dim('[1/5]')} 📦  Creating package.json...`);
   await spawn('yarn', ['init']);
   // eslint-disable-next-line global-require, import/no-dynamic-require
   const pkg = require(join(process.cwd(), 'package.json'));
@@ -37,23 +38,34 @@ const generatePkg = async () => {
   if (!pkg.dependencies['prop-types']) {
     pkg.dependencies['prop-types'] = 'latest';
   }
-  if (!pkg.devDependencies) {
-    pkg.devDependencies = {};
-  }
-  if (!pkg.devDependencies.eslint) {
-    pkg.devDependencies.eslint = 'latest';
-  }
-  if (!pkg.devDependencies['eslint-config-airbnb']) {
-    pkg.devDependencies['eslint-config-airbnb'] = 'latest';
-  }
-  if (!pkg.devDependencies['eslint-plugin-import']) {
-    pkg.devDependencies['eslint-plugin-import'] = 'latest';
-  }
-  if (!pkg.devDependencies['eslint-plugin-jsx-a11y']) {
-    pkg.devDependencies['eslint-plugin-jsx-a11y'] = 'latest';
-  }
-  if (!pkg.devDependencies['eslint-plugin-react']) {
-    pkg.devDependencies['eslint-plugin-react'] = 'latest';
+  if (!flags.skipEslint) {
+    if (!pkg.devDependencies) {
+      pkg.devDependencies = {};
+    }
+    if (!pkg.devDependencies.eslint) {
+      pkg.devDependencies.eslint = 'latest';
+    }
+    if (!pkg.devDependencies['eslint-config-airbnb']) {
+      pkg.devDependencies['eslint-config-airbnb'] = 'latest';
+    }
+    if (!pkg.devDependencies['eslint-config-prettier']) {
+      pkg.devDependencies['eslint-config-prettier'] = 'latest';
+    }
+    if (!pkg.devDependencies['eslint-plugin-import']) {
+      pkg.devDependencies['eslint-plugin-import'] = 'latest';
+    }
+    if (!pkg.devDependencies['eslint-plugin-jsx-a11y']) {
+      pkg.devDependencies['eslint-plugin-jsx-a11y'] = 'latest';
+    }
+    if (!pkg.devDependencies['eslint-plugin-react']) {
+      pkg.devDependencies['eslint-plugin-react'] = 'latest';
+    }
+    if (!pkg.devDependencies['babel-eslint']) {
+      pkg.devDependencies['babel-eslint'] = 'latest';
+    }
+    if (!pkg.devDependencies['eslint-plugin-prettier']) {
+      pkg.devDependencies['eslint-plugin-prettier'] = 'latest';
+    }
   }
   if (!pkg.scripts) {
     pkg.scripts = {};
@@ -74,7 +86,7 @@ const generatePkg = async () => {
 const scaffold = () => {
   // eslint-disable-next-line global-require, import/no-dynamic-require
   const pkg = require(join(process.cwd(), 'package.json'));
-  console.log(`${dim('[2/4]')} 🌳  Creating basic architecture...`);
+  console.log(`${dim('[2/5]')} 🌳  Creating basic architecture...`);
   fs.mkdirSync(join(process.cwd(), 'components'));
   fs.mkdirSync(join(process.cwd(), 'pages'));
   const helloComponent = `
@@ -143,7 +155,7 @@ export default Index;
 };
 
 const generateGitignore = () => {
-  console.log(`${dim('[3/4]')} 📜  Creating default .gitignore...`);
+  console.log(`${dim('[3/5]')} 📜  Creating default .gitignore...`);
   const gitignore = './.gitignore';
   if (!fs.existsSync(gitignore)) {
     const DEFAULT_GITIGNORE = `
@@ -156,8 +168,32 @@ node_modules
   }
 };
 
+const generateEslintrc = () => {
+  console.log(`${dim('[4/5]')} 👨‍💻  Creating .eslintrc.js...`);
+  const eslintrc = './.eslintrc.js';
+  if (!fs.existsSync(eslintrc)) {
+    const DEFAULT_ESLINTRC = `
+module.exports = {
+  extends: ['airbnb', 'prettier'],
+  env: {
+    browser: true,
+  },
+  parser: 'babel-eslint',
+  plugins: ['react', 'jsx-a11y', 'import', 'prettier'],
+  rules: {
+    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
+    'jsx-a11y/href-no-hash': 0,
+    'react/jsx-closing-tag-location': 0,
+    'react/jsx-curly-brace-presence': 0,
+  },
+};
+`.trim();
+    fs.writeFileSync(eslintrc, DEFAULT_ESLINTRC);
+  }
+};
+
 const installDependencies = async () => {
-  console.log(`${dim('[4/4]')} 📦  Installing packages...`);
+  console.log(`${dim('[5/5]')} 📦  Installing packages...`);
   if (flags.npm) {
     await spawn('npm', ['install']);
   } else {
@@ -177,6 +213,7 @@ const generateProject = async () => {
   await generatePkg();
   await scaffold();
   await generateGitignore();
+  if (!flags.skipEslint) await generateEslintrc();
   if (!flags.skipInstall) await installDependencies();
   await congrats();
 };
