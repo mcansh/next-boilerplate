@@ -14,12 +14,12 @@
   },
   "dependencies": {
     "args": "3.0.7",
-    "chalk": "2.1.0",
+    "chalk": "2.2.0",
     "clipboardy": "^1.1.4"
   },
   "devDependencies": {
     "eslint": "4.9.0",
     "eslint-config-airbnb-base": "12.1.0",
-    "eslint-plugin-import": "2.7.0"
+    "eslint-plugin-import": "2.8.0"
   }
 }
