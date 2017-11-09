@@ -1,9 +1,8 @@
 #!/usr/bin/env node
-const fs = require('fs');
-const { green, dim } = require('chalk');
-const { join } = require('path');
+const fs = require('fs-extra');
+// const { green, dim } = require('chalk');
+const { resolve, join } = require('path');
 const args = require('args');
-const clipboardy = require('clipboardy');
 const { spawn } = require('../utils/exec');
 
 args
@@ -14,13 +13,14 @@ args
 
 const flags = args.parse(process.argv);
 
-const generatePkg = async () => {
-  if (flags.new) {
-    await spawn('mkdir', [flags.new]);
-    await process.chdir(flags.new);
-  }
-  console.log(`${dim('[1/5]')} 📦  Creating package.json...`);
-  await spawn('yarn', ['init']);
+const copy = () => {
+  fs.copySync(resolve(__dirname, '../template/components/Hello.js'), './components/Hello.js');
+  fs.copySync(resolve(__dirname, '../template/pages/index.js'), './pages/index.js');
+  fs.copySync(resolve(__dirname, '../template/pages/_document.js'), './pages/_document.js');
+  fs.copySync(resolve(__dirname, '../template/.eslintrc.js'), './.eslintrc.js');
+};
+
+const generatePackageJSON = async () => {
   // eslint-disable-next-line global-require, import/no-dynamic-require
   const pkg = require(join(process.cwd(), 'package.json'));
   if (!pkg.dependencies) {
@@ -83,139 +83,23 @@ const generatePkg = async () => {
   return pkg;
 };
 
-const scaffold = () => {
-  // eslint-disable-next-line global-require, import/no-dynamic-require
-  const pkg = require(join(process.cwd(), 'package.json'));
-  console.log(`${dim('[2/5]')} 🌳  Creating basic architecture...`);
-  fs.mkdirSync(join(process.cwd(), 'components'));
-  fs.mkdirSync(join(process.cwd(), 'pages'));
-  const helloComponent = `
-import React from 'react';
-
-const Hello = () => (
-  <h1>${pkg.name}</h1>
-);
-
-export default Hello;
-  `.trim();
-
-  const documentLayout = `
-import React from 'react';
-import Document, { Head, Main, NextScript } from 'next/document';
-
-class Page extends Document {
-  render() {
-    return (
-      <html lang="en">
-        <Head>
-          <title>${pkg.name}</title>
-          <meta charSet="utf-8" />
-          <meta
-            name="viewport"
-            content="initial-scale=1.0, width=device-width, viewport-fit=cover"
-          />
-          <meta
-            name="description"
-            content="${pkg.description}"
-          />
-        </Head>
-        <body>
-          <Main />
-          <NextScript />
-        </body>
-      </html>
-    )
+const init = async () => {
+  const packageManager = flags.npm ? 'npm' : 'yarn';
+  if (flags.new) {
+    await spawn('mkdir', [flags.new]);
+    await process.chdir(flags.new);
   }
-}
 
-export default Page;
-  `.trim();
-
-  const indexPgae = `
-import React from 'react';
-import Hello from '../components/Hello';
-
-const Index = () => (
-  <div>
-    <Hello />
-    <style jsx global>{\`
-      * {
-        margin: 0;
-        box-sizing: border-box;
-      }
-    \`}</style>
-  </div>
-);
-
-export default Index;
-  `.trim();
-  fs.writeFileSync(join(process.cwd(), 'pages', '_document.js'), documentLayout);
-  fs.writeFileSync(join(process.cwd(), 'pages', 'index.js'), indexPgae);
-  fs.writeFileSync(join(process.cwd(), 'components', 'Hello.js'), helloComponent);
+  await spawn(packageManager, ['init']);
+  await generatePackageJSON();
+  await copy();
+  console.log(`Installing dependencies using ${packageManager}`);
+  await spawn(packageManager, ['install']);
+  console.log(`
+    Things to do next:
+      1. cd into your project: 'cd ./${flags.new}'
+      2. start your application: '${packageManager} dev'
+  `);
 };
 
-const generateGitignore = () => {
-  console.log(`${dim('[3/5]')} 📜  Creating default .gitignore...`);
-  const gitignore = './.gitignore';
-  if (!fs.existsSync(gitignore)) {
-    const DEFAULT_GITIGNORE = `
-node_modules
-*.log
-.DS_Store
-.next
-    `.trim();
-    fs.writeFileSync(gitignore, DEFAULT_GITIGNORE);
-  }
-};
-
-const generateEslintrc = () => {
-  console.log(`${dim('[4/5]')} 👨‍💻  Creating .eslintrc.js...`);
-  const eslintrc = './.eslintrc.js';
-  if (!fs.existsSync(eslintrc)) {
-    const DEFAULT_ESLINTRC = `
-module.exports = {
-  extends: ['airbnb', 'prettier'],
-  env: {
-    browser: true,
-  },
-  parser: 'babel-eslint',
-  plugins: ['react', 'jsx-a11y', 'import', 'prettier'],
-  rules: {
-    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
-    'jsx-a11y/href-no-hash': 0,
-    'react/jsx-closing-tag-location': 0,
-    'react/jsx-curly-brace-presence': 0,
-  },
-};
-`.trim();
-    fs.writeFileSync(eslintrc, DEFAULT_ESLINTRC);
-  }
-};
-
-const installDependencies = async () => {
-  console.log(`${dim('[5/5]')} 📦  Installing packages...`);
-  if (flags.npm) {
-    await spawn('npm', ['install']);
-  } else {
-    await spawn('yarn', ['install']);
-  }
-};
-
-const congrats = async () => {
-  await console.log(`${green('success')} 🎉  App initialized!`);
-  if (!flags.s) {
-    await clipboardy.writeSync(`cd ${process.cwd()} && npm run dev`);
-    await console.log('run the command copied to the clipboard to get go into your new app');
-  }
-};
-
-const generateProject = async () => {
-  await generatePkg();
-  await scaffold();
-  await generateGitignore();
-  if (!flags.skipEslint) await generateEslintrc();
-  if (!flags.skipInstall) await installDependencies();
-  await congrats();
-};
-
-generateProject();
+init();
