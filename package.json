@@ -15,7 +15,6 @@
   "dependencies": {
     "args": "3.0.7",
     "chalk": "2.2.0",
-    "clipboardy": "^1.1.4",
     "fs-extra": "^4.0.2"
   },
   "devDependencies": {
