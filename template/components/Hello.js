@@ -7,4 +7,8 @@ const Hello = ({ name }) => (
   </div>
 );
 
+Hello.propTypes = {
+  name: PropTypes.string.isRequired,
+};
+
 export default Hello;

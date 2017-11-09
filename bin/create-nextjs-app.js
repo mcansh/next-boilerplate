@@ -14,9 +14,18 @@ args
 const flags = args.parse(process.argv);
 
 const copy = () => {
-  fs.copySync(resolve(__dirname, '../template/components/Hello.js'), './components/Hello.js');
-  fs.copySync(resolve(__dirname, '../template/pages/index.js'), './pages/index.js');
-  fs.copySync(resolve(__dirname, '../template/pages/_document.js'), './pages/_document.js');
+  fs.copySync(
+    resolve(__dirname, '../template/components/Hello.js'),
+    './components/Hello.js',
+  );
+  fs.copySync(
+    resolve(__dirname, '../template/pages/index.js'),
+    './pages/index.js',
+  );
+  fs.copySync(
+    resolve(__dirname, '../template/pages/_document.js'),
+    './pages/_document.js',
+  );
   fs.copySync(resolve(__dirname, '../template/.eslintrc.js'), './.eslintrc.js');
 };
 
@@ -90,6 +99,7 @@ const init = async () => {
     await process.chdir(flags.new);
   }
 
+  /* eslint-disable no-console */
   await spawn(packageManager, ['init']);
   await generatePackageJSON();
   await copy();
@@ -100,6 +110,7 @@ const init = async () => {
       1. cd into your project: 'cd ./${flags.new}'
       2. start your application: '${packageManager} dev'
   `);
+  /* eslint-enable no-console */
 };
 
 init();
