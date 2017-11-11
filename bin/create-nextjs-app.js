@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 const fs = require('fs-extra');
-// const { green, dim } = require('chalk');
 const { resolve, join } = require('path');
 const args = require('args');
 const { spawn } = require('../utils/exec');

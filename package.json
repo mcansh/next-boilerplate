@@ -14,17 +14,15 @@
   },
   "dependencies": {
     "args": "3.0.7",
-    "chalk": "2.3.0",
-    "clipboardy": "^1.1.4",
     "fs-extra": "^4.0.2",
     "next": "^4.1.4",
     "prop-types": "^15.6.0",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0"
+    "react": "^16.1.0",
+    "react-dom": "^16.1.0"
   },
   "devDependencies": {
     "babel-eslint": "^8.0.2",
-    "eslint": "^4.10.0",
+    "eslint": "^4.11.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-config-airbnb-base": "12.1.0",
     "eslint-config-prettier": "^2.7.0",
