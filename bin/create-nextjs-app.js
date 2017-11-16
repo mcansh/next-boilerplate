@@ -8,6 +8,8 @@ args
   .option('new', 'Create a new directory and run the initializer')
   .option('skipInstall', 'Skips installation of dependencies')
   .option('npm', 'Use npm instead of yarn')
+  .option('canary', 'Use next@canary')
+  .option('defaults', 'Use NPM/Yarn defaults')
   .option('skipEslint', "Don't install ESLint");
 
 const flags = args.parse(process.argv);
@@ -34,7 +36,9 @@ const generatePackageJSON = async () => {
   if (!pkg.dependencies) {
     pkg.dependencies = {};
   }
-  if (!pkg.dependencies.next) {
+  if (!pkg.dependencies.next && flags.canary) {
+    pkg.dependencies.next = 'canary';
+  } else {
     pkg.dependencies.next = 'latest';
   }
   if (!pkg.dependencies.react) {
@@ -99,7 +103,7 @@ const init = async () => {
   }
 
   /* eslint-disable no-console */
-  await spawn(packageManager, ['init']);
+  await spawn(packageManager, ['init', flags.defaults ? '-y' : '']);
   await generatePackageJSON();
   await copy();
   console.log(`Installing dependencies using ${packageManager}`);
