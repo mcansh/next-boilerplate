@@ -9,6 +9,7 @@ args
   .option('skipInstall', 'Skips installation of dependencies')
   .option('npm', 'Use npm instead of yarn')
   .option('canary', 'Use next@canary')
+  .option('defaults', 'Use NPM/Yarn defaults')
   .option('skipEslint', "Don't install ESLint");
 
 const flags = args.parse(process.argv);
@@ -102,7 +103,7 @@ const init = async () => {
   }
 
   /* eslint-disable no-console */
-  await spawn(packageManager, ['init']);
+  await spawn(packageManager, ['init', flags.defaults ? '-y' : '']);
   await generatePackageJSON();
   await copy();
   console.log(`Installing dependencies using ${packageManager}`);
