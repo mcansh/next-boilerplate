@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "args": "3.0.7",
-    "fs-extra": "^4.0.2",
+    "fs-extra": "^5.0.0",
     "next": "^4.1.4",
     "prop-types": "^15.6.0",
     "react": "^16.1.0",
