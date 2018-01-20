@@ -56,7 +56,7 @@ const generatePackageJSON = async () => {
   if (!pkg.dependencies['prop-types']) {
     pkg.dependencies['prop-types'] = 'latest';
   }
-  if (!pkg.devDependencies.webpack) {
+  if (!pkg.dependencies.webpack) {
     pkg.dependencies.webpack = 'latest';
   }
   if (!flags.skipEslint) {
