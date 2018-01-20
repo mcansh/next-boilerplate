@@ -1,7 +1,7 @@
 module.exports = {
   extends: ['airbnb', 'prettier'],
   env: {
-    browser: true,
+    browser: true
   },
   parser: 'babel-eslint',
   plugins: ['react', 'jsx-a11y', 'import', 'prettier'],
@@ -10,5 +10,6 @@ module.exports = {
     'jsx-a11y/href-no-hash': 0,
     'react/jsx-closing-tag-location': 0,
     'react/jsx-curly-brace-presence': 0,
-  },
+    'comma-dangle': [2, 'always-multiline']
+  }
 };

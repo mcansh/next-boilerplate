@@ -9,7 +9,7 @@ args
   .option('skipInstall', 'Skips installation of dependencies')
   .option('npm', 'Use npm instead of yarn')
   .option('canary', 'Use next@canary')
-  .option('defaults', 'Use NPM/Yarn defaults')
+  .option('defaults', 'Use NPM/Yarn init defaults')
   .option('skipEslint', "Don't install ESLint");
 
 const flags = args.parse(process.argv);
@@ -17,17 +17,23 @@ const flags = args.parse(process.argv);
 const copy = () => {
   fs.copySync(
     resolve(__dirname, '../template/components/Hello.js'),
-    './components/Hello.js',
+    './components/Hello.js'
   );
   fs.copySync(
     resolve(__dirname, '../template/pages/index.js'),
-    './pages/index.js',
+    './pages/index.js'
   );
   fs.copySync(
     resolve(__dirname, '../template/pages/_document.js'),
-    './pages/_document.js',
+    './pages/_document.js'
   );
-  fs.copySync(resolve(__dirname, '../template/.eslintrc.js'), './.eslintrc.js');
+  fs.copySync(resolve(__dirname, '../.gitignore'), './.gitignore');
+  if (!flags.skipEslint) {
+    fs.copySync(
+      resolve(__dirname, '../template/.eslintrc.js'),
+      './.eslintrc.js'
+    );
+  }
 };
 
 const generatePackageJSON = async () => {
@@ -49,6 +55,9 @@ const generatePackageJSON = async () => {
   }
   if (!pkg.dependencies['prop-types']) {
     pkg.dependencies['prop-types'] = 'latest';
+  }
+  if (!pkg.devDependencies.webpack) {
+    pkg.devDependencies.webpack = 'latest';
   }
   if (!flags.skipEslint) {
     if (!pkg.devDependencies) {
@@ -77,6 +86,9 @@ const generatePackageJSON = async () => {
     }
     if (!pkg.devDependencies['eslint-plugin-prettier']) {
       pkg.devDependencies['eslint-plugin-prettier'] = 'latest';
+    }
+    if (!pkg.devDependencies.prettier) {
+      pkg.devDependencies.prettier = 'latest';
     }
   }
   if (!pkg.scripts) {
@@ -108,11 +120,15 @@ const init = async () => {
   await copy();
   console.log(`Installing dependencies using ${packageManager}`);
   await spawn(packageManager, ['install']);
-  console.log(`
+  if (flags.new) {
+    console.log(`
     Things to do next:
-      1. cd into your project: 'cd ./${flags.new}'
-      2. start your application: '${packageManager} dev'
+      > cd into your project: 'cd ./${flags.new}'
+      > start your application: '${packageManager} dev'
   `);
+  } else {
+    console.log(`> Start your application: '${packageManager} dev'`);
+  }
   /* eslint-enable no-console */
 };
 
