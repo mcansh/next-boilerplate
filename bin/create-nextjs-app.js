@@ -57,7 +57,7 @@ const generatePackageJSON = async () => {
     pkg.dependencies['prop-types'] = 'latest';
   }
   if (!pkg.devDependencies.webpack) {
-    pkg.devDependencies.webpack = 'latest';
+    pkg.dependencies.webpack = 'latest';
   }
   if (!flags.skipEslint) {
     if (!pkg.devDependencies) {
