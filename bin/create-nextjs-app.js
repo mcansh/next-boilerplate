@@ -14,20 +14,17 @@ args
 
 const flags = args.parse(process.argv);
 
+const filesToCopy = [
+  'components/Hello.js',
+  'pages/index.js',
+  'pages/_document.js',
+  '.gitignore'
+];
+
 const copy = () => {
-  fs.copySync(
-    resolve(__dirname, '../template/components/Hello.js'),
-    './components/Hello.js'
-  );
-  fs.copySync(
-    resolve(__dirname, '../template/pages/index.js'),
-    './pages/index.js'
-  );
-  fs.copySync(
-    resolve(__dirname, '../template/pages/_document.js'),
-    './pages/_document.js'
-  );
-  fs.copySync(resolve(__dirname, '../.gitignore'), './.gitignore');
+  filesToCopy.forEach(file => {
+    fs.copySync(resolve(__dirname, `../template/${file}`), file);
+  });
   if (!flags.skipEslint) {
     fs.copySync(
       resolve(__dirname, '../template/.eslintrc.js'),
@@ -99,7 +96,7 @@ const init = async () => {
   console.log(`▲ Installing dependencies using ${packageManager}`);
   await spawn(packageManager, ['install']);
   if (flags.new) {
-    console.log(`Things to do next:
+    console.log(`Application initialized:
     ▲ cd into your project: cd ./${flags.new}
     ▲ start your application: ${packageManager} dev`);
   } else {
