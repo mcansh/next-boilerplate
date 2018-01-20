@@ -36,73 +36,51 @@ const copy = () => {
   }
 };
 
+const deps = [
+  { name: 'next', version: flags.canary ? 'canary' : 'latest' },
+  'react',
+  'react-dom',
+  'prop-types',
+  'webpack'
+];
+const devDeps = [
+  'eslint',
+  'eslint-config-airbnb',
+  'eslint-config-prettier',
+  'eslint-plugin-import',
+  'eslint-plugin-jsx-a11y',
+  'eslint-plugin-react',
+  'babel-eslint',
+  'eslint-plugin-prettier',
+  'prettier'
+];
+const scripts = [
+  { name: 'dev', script: 'next' },
+  { name: 'build', script: 'next build' },
+  { name: 'start', script: 'next start' }
+];
+
 const generatePackageJSON = async () => {
   // eslint-disable-next-line global-require, import/no-dynamic-require
   const pkg = require(join(process.cwd(), 'package.json'));
   if (!pkg.dependencies) {
     pkg.dependencies = {};
   }
-  if (!pkg.dependencies.next && flags.canary) {
-    pkg.dependencies.next = 'canary';
-  } else {
-    pkg.dependencies.next = 'latest';
-  }
-  if (!pkg.dependencies.react) {
-    pkg.dependencies.react = 'latest';
-  }
-  if (!pkg.dependencies['react-dom']) {
-    pkg.dependencies['react-dom'] = 'latest';
-  }
-  if (!pkg.dependencies['prop-types']) {
-    pkg.dependencies['prop-types'] = 'latest';
-  }
-  if (!pkg.dependencies.webpack) {
-    pkg.dependencies.webpack = 'latest';
+  deps.forEach(
+    dep => (pkg.dependencies[dep.name || dep] = dep.version || 'latest')
+  );
+  if (!flags.skipEslint && !pkg.devDependencies) {
+    pkg.devDependencies = {};
   }
   if (!flags.skipEslint) {
-    if (!pkg.devDependencies) {
-      pkg.devDependencies = {};
-    }
-    if (!pkg.devDependencies.eslint) {
-      pkg.devDependencies.eslint = 'latest';
-    }
-    if (!pkg.devDependencies['eslint-config-airbnb']) {
-      pkg.devDependencies['eslint-config-airbnb'] = 'latest';
-    }
-    if (!pkg.devDependencies['eslint-config-prettier']) {
-      pkg.devDependencies['eslint-config-prettier'] = 'latest';
-    }
-    if (!pkg.devDependencies['eslint-plugin-import']) {
-      pkg.devDependencies['eslint-plugin-import'] = 'latest';
-    }
-    if (!pkg.devDependencies['eslint-plugin-jsx-a11y']) {
-      pkg.devDependencies['eslint-plugin-jsx-a11y'] = 'latest';
-    }
-    if (!pkg.devDependencies['eslint-plugin-react']) {
-      pkg.devDependencies['eslint-plugin-react'] = 'latest';
-    }
-    if (!pkg.devDependencies['babel-eslint']) {
-      pkg.devDependencies['babel-eslint'] = 'latest';
-    }
-    if (!pkg.devDependencies['eslint-plugin-prettier']) {
-      pkg.devDependencies['eslint-plugin-prettier'] = 'latest';
-    }
-    if (!pkg.devDependencies.prettier) {
-      pkg.devDependencies.prettier = 'latest';
-    }
+    devDeps.forEach(dep => (pkg.devDependencies[dep] = 'latest'));
   }
+
   if (!pkg.scripts) {
     pkg.scripts = {};
   }
-  if (!pkg.scripts.dev) {
-    pkg.scripts.dev = 'next';
-  }
-  if (!pkg.scripts.build) {
-    pkg.scripts.build = 'next build';
-  }
-  if (!pkg.scripts.start) {
-    pkg.scripts.start = 'next start';
-  }
+  scripts.forEach(script => (pkg.scripts[script.name] = script.script));
+
   fs.writeFileSync('package.json', JSON.stringify(pkg, null, '\t'));
   return pkg;
 };
@@ -118,16 +96,15 @@ const init = async () => {
   await spawn(packageManager, ['init', flags.defaults ? '-y' : '']);
   await generatePackageJSON();
   await copy();
-  console.log(`Installing dependencies using ${packageManager}`);
+  console.log(`▲ Installing dependencies using ${packageManager}`);
   await spawn(packageManager, ['install']);
   if (flags.new) {
-    console.log(`
-    Things to do next:
-      > cd into your project: 'cd ./${flags.new}'
-      > start your application: '${packageManager} dev'
-  `);
+    console.log(`Things to do next:
+    ▲ cd into your project: cd ./${flags.new}
+    ▲ start your application: ${packageManager} dev`);
   } else {
-    console.log(`> Start your application: '${packageManager} dev'`);
+    console.log(`Application initialized:
+    ▲ Start your application: ${packageManager} dev`);
   }
   /* eslint-enable no-console */
 };
