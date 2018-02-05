@@ -18,7 +18,7 @@ const filesToCopy = [
   'components/Hello.js',
   'pages/index.js',
   'pages/_document.js',
-  '.gitignore'
+  '.gitignore',
 ];
 
 const copy = () => {
@@ -35,26 +35,26 @@ const copy = () => {
 
 const deps = [
   { name: 'next', version: flags.canary ? 'canary' : 'latest' },
-  'react',
-  'react-dom',
-  'prop-types',
-  'webpack'
+  { name: 'react', version: 'latest' },
+  { name: 'react-dom', version: 'latest' },
+  { name: 'prop-types', version: 'latest' },
+  { name: 'webpack', version: 'latest' },
 ];
 const devDeps = [
   'eslint',
+  'babel-eslint',
   'eslint-config-airbnb',
   'eslint-config-prettier',
   'eslint-plugin-import',
   'eslint-plugin-jsx-a11y',
   'eslint-plugin-react',
-  'babel-eslint',
   'eslint-plugin-prettier',
-  'prettier'
+  'prettier',
 ];
 const scripts = [
   { name: 'dev', script: 'next' },
   { name: 'build', script: 'next build' },
-  { name: 'start', script: 'next start' }
+  { name: 'start', script: 'next start' },
 ];
 
 const generatePackageJSON = async () => {
@@ -63,9 +63,7 @@ const generatePackageJSON = async () => {
   if (!pkg.dependencies) {
     pkg.dependencies = {};
   }
-  deps.forEach(
-    dep => (pkg.dependencies[dep.name || dep] = dep.version || 'latest')
-  );
+  deps.forEach(dep => (pkg.dependencies[dep.name] = dep.version));
   if (!flags.skipEslint && !pkg.devDependencies) {
     pkg.devDependencies = {};
   }
