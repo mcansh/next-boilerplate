@@ -12,6 +12,12 @@ module.exports = {
     'react/jsx-closing-tag-location': 0,
     'react/jsx-curly-brace-presence': 0,
     'jsx-a11y/anchor-is-valid': 0,
-    'comma-dangle': [2, 'always-multiline']
+    'comma-dangle': [2, 'always-multiline'],
+    'prettier/prettier': [
+      'error', {
+        trailingComma: 'es5',
+        singleQuote: true,
+      }
+    ]
   }
 };
