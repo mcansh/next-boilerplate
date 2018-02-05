@@ -1,5 +1,5 @@
 module.exports = {
-  extends: ['airbnb', 'prettier'],
+  extends: ['airbnb', 'prettier', 'prettier/react'],
   env: {
     browser: true,
   },
@@ -7,5 +7,12 @@ module.exports = {
   plugins: ['import', 'prettier'],
   rules: {
     'comma-dangle': [2, 'always-multiline'],
+    'prettier/prettier': [
+      'error',
+      {
+        trailingComma: 'es5',
+        singleQuote: true
+      }
+    ]
   },
 };
