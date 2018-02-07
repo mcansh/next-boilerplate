@@ -18,13 +18,13 @@ const filesToCopy = [
   'components/Hello.js',
   'pages/index.js',
   'pages/_document.js',
-  '.gitignore',
 ];
 
 const copy = () => {
   filesToCopy.forEach(file => {
     fs.copySync(resolve(__dirname, `../template/${file}`), file);
   });
+  fs.copySync(resolve(__dirname, '../template/gitignore'), './.gitignore');
   if (!flags.skipEslint) {
     fs.copySync(
       resolve(__dirname, '../template/.eslintrc.js'),
