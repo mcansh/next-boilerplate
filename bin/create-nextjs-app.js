@@ -9,7 +9,8 @@ args
   .option('skipInstall', 'Skips installation of dependencies')
   .option('npm', 'Use npm instead of yarn')
   .option('canary', 'Use next@canary')
-  .option('defaults', 'Use NPM/Yarn init defaults')
+  .option(['y', 'defaults'], 'Use NPM/Yarn init defaults')
+  .option(['d', 'defaults'], 'Use NPM/Yarn init defaults')
   .option('skipEslint', "Don't install ESLint");
 
 const flags = args.parse(process.argv);
