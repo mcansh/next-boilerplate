@@ -15,6 +15,8 @@ args
 
 const flags = args.parse(process.argv);
 
+const { new: newDir, skipEslint, skipInstall, npm, canary, defaults } = flags;
+
 const filesToCopy = [
   'components/Hello.js',
   'pages/index.js',
@@ -26,7 +28,7 @@ const copy = () => {
     fs.copySync(resolve(__dirname, `../template/${file}`), file);
   });
   fs.copySync(resolve(__dirname, '../template/gitignore'), './.gitignore');
-  if (!flags.skipEslint) {
+  if (!skipEslint) {
     fs.copySync(
       resolve(__dirname, '../template/.eslintrc.js'),
       './.eslintrc.js'
@@ -35,16 +37,18 @@ const copy = () => {
 };
 
 const deps = [
-  { name: 'next', version: flags.canary ? 'canary' : 'latest' },
+  { name: 'next', version: canary ? 'canary' : 'latest' },
   { name: 'react', version: 'latest' },
   { name: 'react-dom', version: 'latest' },
   { name: 'prop-types', version: 'latest' },
   { name: 'webpack', version: 'latest' },
 ];
+
 const devDeps = [
   'eslint',
   'babel-eslint',
   'eslint-config-airbnb',
+  'eslint-config-mcansh',
   'eslint-config-prettier',
   'eslint-plugin-import',
   'eslint-plugin-jsx-a11y',
@@ -52,6 +56,7 @@ const devDeps = [
   'eslint-plugin-prettier',
   'prettier',
 ];
+
 const scripts = [
   { name: 'dev', script: 'next' },
   { name: 'build', script: 'next build' },
@@ -65,16 +70,17 @@ const generatePackageJSON = async () => {
     pkg.dependencies = {};
   }
   deps.forEach(dep => (pkg.dependencies[dep.name] = dep.version));
-  if (!flags.skipEslint && !pkg.devDependencies) {
+  if (!skipEslint && !pkg.devDependencies) {
     pkg.devDependencies = {};
   }
-  if (!flags.skipEslint) {
+  if (!skipEslint) {
     devDeps.forEach(dep => (pkg.devDependencies[dep] = 'latest'));
   }
 
   if (!pkg.scripts) {
     pkg.scripts = {};
   }
+
   scripts.forEach(script => (pkg.scripts[script.name] = script.script));
 
   fs.writeFileSync('package.json', JSON.stringify(pkg, null, '\t'));
@@ -82,21 +88,23 @@ const generatePackageJSON = async () => {
 };
 
 const init = async () => {
-  const packageManager = flags.npm ? 'npm' : 'yarn';
-  if (flags.new) {
-    await spawn('mkdir', [flags.new]);
-    await process.chdir(flags.new);
+  const packageManager = npm ? 'npm' : 'yarn';
+  if (newDir) {
+    await spawn('mkdir', [newDir]);
+    await process.chdir(newDir);
   }
 
   /* eslint-disable no-console */
-  await spawn(packageManager, ['init', flags.defaults ? '-y' : '']);
+  await spawn(packageManager, ['init', defaults ? '-y' : '']);
   await generatePackageJSON();
   await copy();
-  console.log(`▲ Installing dependencies using ${packageManager}`);
-  await spawn(packageManager, ['install']);
-  if (flags.new) {
+  if (!skipInstall) {
+    console.log(`▲ Installing dependencies using ${packageManager}`);
+    await spawn(packageManager, ['install']);
+  }
+  if (newDir) {
     console.log(`Application initialized:
-    ▲ cd into your project: cd ./${flags.new}
+    ▲ cd into your project: cd ./${newDir}
     ▲ start your application: ${packageManager} dev`);
   } else {
     console.log(`Application initialized:
