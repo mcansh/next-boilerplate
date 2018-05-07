@@ -1,19 +1,6 @@
 module.exports = {
-  extends: ['airbnb', 'prettier'],
-  env: {
-    browser: true,
-    es6: true
-  },
-  parser: 'babel-eslint',
-  plugins: ['import', 'prettier'],
+  extends: ['mcansh'],
   rules: {
-    'comma-dangle': [2, 'always-multiline'],
-        'prettier/prettier': [
-      'error',
-      {
-        trailingComma: 'es5',
-        singleQuote: true
-      }
-    ],
-  },
+    'no-return-assign': ['error', "except-parens"]
+  }
 };
