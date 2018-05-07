@@ -13,19 +13,20 @@
     "create-nextjs-app": "./bin/create-nextjs-app.js"
   },
   "dependencies": {
-    "args": "3.0.8",
-    "fs-extra": "^5.0.0"
+    "args": "4.0.0",
+    "fs-extra": "^6.0.0"
   },
   "devDependencies": {
-    "babel-eslint": "^8.0.3",
-    "eslint": "^4.17.0",
+    "babel-eslint": "^8.2.3",
+    "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-mcansh": "^1.0.7",
     "eslint-config-prettier": "^2.9.0",
-    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-import": "^2.11.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-prettier": "^2.6.0",
-    "eslint-plugin-react": "^7.6.1",
-    "prettier": "^1.10.2"
+    "eslint-plugin-react": "^7.7.0",
+    "prettier": "^1.12.1"
   },
   "pkg": {
     "assets": "template/**/*"
