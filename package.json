@@ -13,7 +13,7 @@
     "create-nextjs-app": "./bin/create-nextjs-app.js"
   },
   "dependencies": {
-    "args": "4.0.0",
+    "args": "5.0.0",
     "fs-extra": "^6.0.0"
   },
   "devDependencies": {
