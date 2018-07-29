@@ -6,7 +6,8 @@
   "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh)",
   "repository": "mcansh/create-nextjs-app",
   "scripts": {
-    "lint": "eslint ./"
+    "lint": "eslint ./",
+    "test": "yarn lint"
   },
   "bin": {
     "create-nextjs-app": "./bin"
