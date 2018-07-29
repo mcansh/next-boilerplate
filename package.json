@@ -10,7 +10,7 @@
     "test": "yarn lint"
   },
   "bin": {
-    "create-nextjs-app": "./bin"
+    "create-nextjs-app": "./bin/index.js"
   },
   "esm": {
     "mode": "auto",
