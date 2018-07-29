@@ -7,28 +7,32 @@
   "repository": "mcansh/create-nextjs-app",
   "scripts": {
     "lint": "eslint ./",
-    "dist": "pkg ./ --out-path ./dist"
+    "test": "yarn lint"
   },
   "bin": {
-    "create-nextjs-app": "./bin/create-nextjs-app.js"
+    "create-nextjs-app": "./bin"
+  },
+  "esm": {
+    "mode": "auto",
+    "cjs": true
   },
   "dependencies": {
-    "args": "4.0.0",
-    "fs-extra": "^6.0.0"
+    "common-tags": "1.8.0",
+    "esm": "^3.0.72",
+    "fs-extra": "7.0.0",
+    "inquirer": "6.0.0",
+    "kleur": "2.0.1",
+    "prettier": "1.14.0"
   },
   "devDependencies": {
-    "babel-eslint": "^8.2.3",
-    "eslint": "^4.19.1",
-    "eslint-config-airbnb": "^16.1.0",
-    "eslint-config-mcansh": "^1.0.7",
-    "eslint-config-prettier": "^2.9.0",
-    "eslint-plugin-import": "^2.11.0",
-    "eslint-plugin-jsx-a11y": "^6.0.3",
-    "eslint-plugin-prettier": "^2.6.0",
-    "eslint-plugin-react": "^7.7.0",
-    "prettier": "^1.12.1"
-  },
-  "pkg": {
-    "assets": "template/**/*"
+    "babel-eslint": "8.2.6",
+    "eslint": "5.2.0",
+    "eslint-config-airbnb": "17.0.0",
+    "eslint-config-mcansh": "1.0.7",
+    "eslint-config-prettier": "2.9.0",
+    "eslint-plugin-import": "2.13.0",
+    "eslint-plugin-jsx-a11y": "6.1.1",
+    "eslint-plugin-prettier": "2.6.2",
+    "eslint-plugin-react": "7.10.0"
   }
 }

@@ -1,6 +1,6 @@
-const childProcess = require('child_process');
+import childProcess from 'child_process';
 
-module.exports.spawn = (command, args) =>
+const spawn = (command, args) =>
   new Promise((resolve, reject) => {
     const child = childProcess.spawn(command, args, {
       cwd: process.cwd(),
@@ -14,3 +14,5 @@ module.exports.spawn = (command, args) =>
       reject(err);
     });
   });
+
+export default spawn;
