@@ -9,9 +9,9 @@ const Title = styled.h1`
 
 const Index = () => (
   <>
-    <head>
+    <Head>
       <title>Hello World</title>
-    </head>
+    </Head>
     <Title>Hello World</Title>
   </>
 );
