@@ -385,15 +385,17 @@ escape-string-regexp@^1.0.2, escape-string-regexp@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
 
-eslint-config-airbnb-base@>=12.1.0, eslint-config-airbnb-base@^12.1.0:
-  version "12.1.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-airbnb-base/-/eslint-config-airbnb-base-12.1.0.tgz#386441e54a12ccd957b0a92564a4bafebd747944"
-  dependencies:
-    eslint-restricted-globals "^0.1.1"
-
 eslint-config-airbnb-base@^13.0.0:
   version "13.0.0"
   resolved "https://registry.yarnpkg.com/eslint-config-airbnb-base/-/eslint-config-airbnb-base-13.0.0.tgz#2ee6279c4891128e49d6445b24aa13c2d1a21450"
+  dependencies:
+    eslint-restricted-globals "^0.1.1"
+    object.assign "^4.1.0"
+    object.entries "^1.0.4"
+
+eslint-config-airbnb-base@^13.1.0, eslint-config-airbnb-base@latest:
+  version "13.1.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-airbnb-base/-/eslint-config-airbnb-base-13.1.0.tgz#b5a1b480b80dfad16433d6c4ad84e6605052c05c"
   dependencies:
     eslint-restricted-globals "^0.1.1"
     object.assign "^4.1.0"
@@ -407,18 +409,20 @@ eslint-config-airbnb@17.0.0:
     object.assign "^4.1.0"
     object.entries "^1.0.4"
 
-eslint-config-airbnb@>=16.1.0:
-  version "16.1.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-airbnb/-/eslint-config-airbnb-16.1.0.tgz#2546bfb02cc9fe92284bf1723ccf2e87bc45ca46"
+eslint-config-airbnb@latest:
+  version "17.1.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-airbnb/-/eslint-config-airbnb-17.1.0.tgz#3964ed4bc198240315ff52030bf8636f42bc4732"
   dependencies:
-    eslint-config-airbnb-base "^12.1.0"
+    eslint-config-airbnb-base "^13.1.0"
+    object.assign "^4.1.0"
+    object.entries "^1.0.4"
 
-eslint-config-mcansh@1.0.7:
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/eslint-config-mcansh/-/eslint-config-mcansh-1.0.7.tgz#da3d234286214a51a4d797da4d049658673e0b47"
+eslint-config-mcansh@1.0.9:
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/eslint-config-mcansh/-/eslint-config-mcansh-1.0.9.tgz#8d635b51dfb334f149f5f65d46a616a15c49db66"
   optionalDependencies:
-    eslint-config-airbnb ">=16.1.0"
-    eslint-config-airbnb-base ">=12.1.0"
+    eslint-config-airbnb latest
+    eslint-config-airbnb-base latest
 
 eslint-config-prettier@2.9.0:
   version "2.9.0"
