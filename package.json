@@ -20,7 +20,7 @@
     "common-tags": "1.8.0",
     "esm": "^3.0.72",
     "fs-extra": "7.0.0",
-    "inquirer": "6.0.0",
+    "inquirer": "6.2.1",
     "kleur": "2.0.1",
     "prettier": "1.14.0"
   },
