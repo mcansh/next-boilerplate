@@ -25,7 +25,7 @@
     "prettier": "1.14.0"
   },
   "devDependencies": {
-    "babel-eslint": "8.2.6",
+    "babel-eslint": "9.0.0",
     "eslint": "5.2.0",
     "eslint-config-airbnb": "17.1.0",
     "eslint-config-mcansh": "1.0.7",
