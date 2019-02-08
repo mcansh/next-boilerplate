@@ -19,19 +19,19 @@
   "dependencies": {
     "common-tags": "1.8.0",
     "esm": "^3.2.4",
-    "fs-extra": "7.0.0",
+    "fs-extra": "7.0.1",
     "inquirer": "6.0.0",
-    "kleur": "2.0.1",
-    "prettier": "1.14.0"
+    "kleur": "3.0.2",
+    "prettier": "1.15.3"
   },
   "devDependencies": {
-    "babel-eslint": "8.2.6",
+    "babel-eslint": "9.0.0",
     "eslint": "5.2.0",
-    "eslint-config-airbnb": "17.0.0",
+    "eslint-config-airbnb": "17.1.0",
     "eslint-config-mcansh": "1.0.7",
     "eslint-config-prettier": "2.9.0",
     "eslint-plugin-import": "2.13.0",
-    "eslint-plugin-jsx-a11y": "6.1.1",
+    "eslint-plugin-jsx-a11y": "6.1.2",
     "eslint-plugin-prettier": "2.6.2",
     "eslint-plugin-react": "7.10.0"
   }
