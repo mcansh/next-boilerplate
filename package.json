@@ -22,7 +22,7 @@
     "fs-extra": "7.0.1",
     "inquirer": "6.0.0",
     "kleur": "2.0.1",
-    "prettier": "1.14.0"
+    "prettier": "1.15.3"
   },
   "devDependencies": {
     "babel-eslint": "9.0.0",
