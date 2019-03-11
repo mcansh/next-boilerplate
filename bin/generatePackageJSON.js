@@ -2,16 +2,24 @@ import { format } from 'prettier';
 
 const generatePackageJSON = async (pkg, useCanary) => {
   const dependencies = [
+    { name: '@zeit/next-typescript' },
     { name: 'babel-plugin-styled-components' },
+    { name: 'babel-plugin-root-import' },
     { name: 'next', version: useCanary ? 'canary' : 'latest' },
+    { name: 'next-offline' },
     { name: 'react' },
     { name: 'react-dom' },
     { name: 'prop-types' },
     { name: 'styled-components' },
+    { name: 'typescript' },
     { name: 'webpack' },
   ];
 
   const devDependencies = [
+    '@types/next',
+    '@types/react',
+    '@types/react-dom',
+    '@types/styled-components',
     'eslint',
     'babel-eslint',
     'eslint-config-airbnb',
