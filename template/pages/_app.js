@@ -1,25 +1,9 @@
 import React from 'react';
 import App, { Container } from 'next/app';
-import { ThemeProvider, injectGlobal } from 'styled-components';
+import { ThemeProvider } from 'styled-components';
+import Head from 'next/head';
+import GlobalStyle from '../components/global-style';
 import theme from '../config';
-
-injectGlobal`
-  html {
-    font-size: 10px;
-    box-sizing: border-box;
-  }
-
-  *,
-  *::before,
-  *::after {
-    box-sizing: inherit;
-    margin: 0;
-  }
-
-  body {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-  }
-`;
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
@@ -37,6 +21,16 @@ class MyApp extends App {
 
     return (
       <Container>
+        <Head>
+          <meta charSet="utf-8" />
+          <meta
+            name="viewport"
+            content="initial-scale=1.0, width=device-width, viewport-fit=cover"
+          />
+          <link rel="manifest" href="/manifest.json" />
+          <meta name="theme-color" content={theme.primary} />
+        </Head>
+        <GlobalStyle />
         <ThemeProvider theme={theme}>
           <Component {...pageProps} />
         </ThemeProvider>
