@@ -1,38 +1,71 @@
 {
   "name": "create-nextjs-app",
-  "version": "2.0.2",
+  "version": "3.0.0",
   "description": "Create a Next.js app easily",
-  "license": "MIT",
-  "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh)",
+  "main": "n/a",
   "repository": "mcansh/create-nextjs-app",
+  "author": "Logan McAnsh <logan@mcan.sh> (https://mcan.sh)",
+  "license": "MIT",
+  "private": true,
   "scripts": {
-    "lint": "eslint ./",
-    "test": "yarn lint"
+    "dev": "next dev -p 4000",
+    "build": "next build",
+    "start": "next start",
+    "type-check": "tsc",
+    "lint": "eslint ./ --ext .js,.ts,.tsx",
+    "lint:css": "stylelint './**/*.js' './**/*.jsx' './**/*.tsx' './**/*.ts'",
+    "test": "jest",
+    "validate": "yarn lint && yarn lint:css && yarn type-check"
   },
-  "bin": {
-    "create-nextjs-app": "./bin/index.js"
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
-  "esm": {
-    "mode": "auto",
-    "cjs": true
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "sh scripts/ts-precommit.bash",
+      "yarn lint:css",
+      "git add"
+    ]
   },
   "dependencies": {
-    "common-tags": "1.8.0",
-    "esm": "^3.2.14",
-    "fs-extra": "7.0.1",
-    "inquirer": "6.2.2",
-    "kleur": "3.0.2",
-    "prettier": "1.16.4"
+    "@sentry/browser": "5.4.0",
+    "@zeit/next-source-maps": "0.0.4-canary.1",
+    "babel-plugin-inline-react-svg": "1.1.0",
+    "babel-plugin-root-import": "6.2.0",
+    "babel-plugin-styled-components": "1.10.0",
+    "next": "8.1.1-canary.47",
+    "next-offline": "4.0.2",
+    "next-server": "8.1.1-canary.47",
+    "react": "16.8.6",
+    "react-dom": "16.8.6",
+    "styled-components": "4.3.1",
+    "type-fest": "0.5.2"
   },
   "devDependencies": {
-    "babel-eslint": "10.0.1",
-    "eslint": "5.15.1",
+    "@types/react": "16.8.19",
+    "@types/react-dom": "16.8.4",
+    "@types/styled-components": "4.1.16",
+    "@typescript-eslint/eslint-plugin": "1.9.0",
+    "@typescript-eslint/parser": "1.9.0",
+    "eslint": "5.16.0",
     "eslint-config-airbnb": "17.1.0",
-    "eslint-config-mcansh": "1.1.0",
-    "eslint-config-prettier": "4.1.0",
-    "eslint-plugin-import": "2.16.0",
-    "eslint-plugin-jsx-a11y": "6.2.1",
-    "eslint-plugin-prettier": "3.0.1",
-    "eslint-plugin-react": "7.12.4"
+    "eslint-config-kentcdodds": "14.3.2",
+    "eslint-config-mcansh": "1.1.1",
+    "eslint-config-prettier": "4.3.0",
+    "eslint-import-resolver-babel-plugin-root-import": "1.1.1",
+    "eslint-import-resolver-typescript": "1.1.1",
+    "eslint-plugin-import": "2.17.3",
+    "eslint-plugin-prettier": "3.1.0",
+    "eslint-plugin-you-dont-need-lodash-underscore": "6.5.0",
+    "husky": "2.4.0",
+    "lint-staged": "8.2.0",
+    "stylelint": "10.0.1",
+    "stylelint-config-recommended": "2.2.0",
+    "stylelint-config-styled-components": "0.1.1",
+    "stylelint-processor-styled-components": "1.8.0",
+    "typescript": "3.5.1"
   }
 }
