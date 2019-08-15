@@ -9,9 +9,9 @@ jobs:
     steps:
     - uses: action/checkout@v1
     - name: Use Node.js ${{ matrix.node_version }}
-     uses: actions/setup-node@v1
-     with:
-      version: ${{ matrix.node_version }}
+      uses: actions/setup-node@v1
+      with:
+        version: ${{ matrix.node_version }}
 
     - name: install yarn
       run: npm install -g yarn
