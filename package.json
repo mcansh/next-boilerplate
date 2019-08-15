@@ -14,7 +14,7 @@
     "lint": "eslint ./ --ext .js,.ts,.tsx",
     "lint:css": "stylelint './**/*.js' './**/*.jsx' './**/*.tsx' './**/*.ts'",
     "test": "jest",
-    "validate": "yarn lint && yarn lint:css && yarn type-check"
+    "validate": "yarn lint && yarn lint:css && yarn type-check && yarn test"
   },
   "husky": {
     "hooks": {
@@ -45,6 +45,8 @@
     "type-fest": "0.7.1"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "4.0.0",
+    "@testing-library/react": "9.1.1",
     "@types/jest": "24.0.17",
     "@types/node": "12.7.2",
     "@types/react": "16.9.1",
