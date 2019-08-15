@@ -1,4 +1,4 @@
-# create-nextjs-app
+# Next.js Boilerplate
 
 Quickly start a new nextjs project
 

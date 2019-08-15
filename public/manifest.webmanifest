@@ -1,7 +1,7 @@
 {
-  "name": "Create Next.js App",
-  "short_name": "Create Next.js App",
-  "description": "Create Next.js App",
+  "name": "App",
+  "short_name": "App",
+  "description": "App",
   "background_color": "#113B55",
   "display": "standalone",
   "theme_color": "#113B55",

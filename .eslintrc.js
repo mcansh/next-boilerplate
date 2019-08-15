@@ -12,10 +12,12 @@ module.exports = {
       typescript: {},
     },
   },
-  overrides: {
-    files: ['*.js', '.*.js'],
-    rules: { '@typescript-eslint/no-var-requires': 'off' },
-  },
+  overrides: [
+    {
+      files: ['*.js', '.*.js'],
+      rules: { '@typescript-eslint/no-var-requires': 'off' },
+    },
+  ],
   rules: {
     'arrow-body-style': ['error', 'as-needed'],
     'promise/prefer-await-to-callbacks': 'off',
