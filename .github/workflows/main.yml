@@ -5,7 +5,8 @@ jobs:
     name: Test on node ${{ matrix.node_version }}
     runs-on: ubuntu-latest
     strategy:
-      node_version: [8, 10, 12]
+      matrix:
+        node_version: [8, 10, 12]
     steps:
     - uses: action/checkout@v1
     - name: Use Node.js ${{ matrix.node_version }}
