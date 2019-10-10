@@ -3,22 +3,14 @@ import { ThemeProvider } from 'styled-components';
 
 import theme from '~/config';
 import GlobalStyle from '~/components/styles/global-style';
+import { useServiceWorker } from '~/hooks/use-service-worker';
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
 const Layout = ({ children }: LayoutProps) => {
-  React.useEffect(() => {
-    if (process.env.NODE_ENV === 'production') {
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker
-          .register('/sw.js')
-          .then(() => console.log('Service Worker registered successfully'))
-          .catch(() => console.warn('Service Worker failed to register'));
-      }
-    }
-  }, []);
+  useServiceWorker();
 
   return (
     <ThemeProvider theme={theme}>
