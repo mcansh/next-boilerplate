@@ -1,9 +1,8 @@
 import React from 'react';
 
-import IndexPage from '~/pages/index';
 import { render } from '~/test-utils';
 
 it('renders correctly', () => {
-  const { container } = render(<IndexPage />);
+  const { container } = render(<h1>Hello World</h1>);
   expect(container.querySelector('h1')).toHaveTextContent('Hello World');
 });

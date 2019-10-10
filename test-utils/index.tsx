@@ -7,7 +7,7 @@ import theme from '~/config';
 const renderWithTheme = (children: React.ReactNode) =>
   render(
     <ThemeProvider theme={theme}>
-      <>{children}</>
+      <div>{children}</div>
     </ThemeProvider>
   );
 

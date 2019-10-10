@@ -4,4 +4,7 @@ module.exports = {
   collectCoverage: true,
   setupFilesAfterEnv: ['@testing-library/jest-dom/extend-expect'],
   testPathIgnorePatterns: ['/.next/', '/node_modules/', '/types/'],
+  moduleNameMapper: {
+    '\\.svg': '<rootDir>/__mocks__/svgrMock.js',
+  },
 };
