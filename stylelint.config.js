@@ -1,1 +1,1 @@
-module.exports = require('eslint-config-mcansh/stylelint.config');
+module.exports = require('@mcansh/eslint-config/stylelint.config');

@@ -1,3 +1,5 @@
+const path = require('path');
+
 const withSourceMaps = require('@zeit/next-source-maps')();
 const withOffline = require('next-offline');
 
@@ -27,6 +29,8 @@ const nextConfig = {
     VERSION: require('./package.json').version,
   },
   webpack: (config, { buildId, webpack }) => {
+    config.resolve.alias['~'] = path.resolve('./');
+
     config.plugins.push(
       new webpack.DefinePlugin({
         'process.env.BUILD_ID': JSON.stringify(buildId),

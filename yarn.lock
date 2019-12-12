@@ -1153,6 +1153,11 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^13.0.0"
 
+"@mcansh/eslint-config@2.4.0":
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/@mcansh/eslint-config/-/eslint-config-2.4.0.tgz#9de9d2f362da745b519b53e4c4a6ab118fc8dd95"
+  integrity sha512-m1vgz2vS7qg+XzCNWhfnzmLgmHpDALoq3CbFNge9ijh0uQvVM/nxipbfKZV2VrlZM4lSEDXroAYAw8SUfFGNew==
+
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@mrmlnc/readdir-enhanced/-/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"
@@ -2230,13 +2235,6 @@ babel-plugin-jest-hoist@^24.9.0:
   integrity sha512-2EMA2P8Vp7lG0RAzr4HXqtYwacfMErOuv1U3wrvxHX6rD1sV6xS3WXG3r8TRQ2r6w8OhvSdWt+z41hQNwNm3Xw==
   dependencies:
     "@types/babel__traverse" "^7.0.6"
-
-babel-plugin-root-import@6.4.1:
-  version "6.4.1"
-  resolved "https://registry.yarnpkg.com/babel-plugin-root-import/-/babel-plugin-root-import-6.4.1.tgz#5c0dfe7588778b1933764c913fa3ed1c78150bf6"
-  integrity sha512-xwEwOwilsg4ZJr5I8bySvpwxCfF4lhYtqySktyTyAG8gcyDYTIDjjvds8P+IHb5gTbM/jiE9hU8e5ZQPQv8TrA==
-  dependencies:
-    slash "^3.0.0"
 
 babel-plugin-styled-components@1.10.6:
   version "1.10.6"
@@ -3837,34 +3835,12 @@ eslint-config-kentcdodds@14.5.0:
     semver "^6.3.0"
     webpack "^4.41.0"
 
-eslint-config-mcansh@2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/eslint-config-mcansh/-/eslint-config-mcansh-2.2.1.tgz#e7072cf2cf8597a65217452eb9821e93149e25df"
-  integrity sha512-g8L+MJUHZdufJxV0GyTYCPpS4yEaMUrhvqFGRBNrP6DSdXL+qmEKQWLggEdiUSvMoG723QYIFcuXvV2ibKr1uQ==
-
 eslint-config-prettier@6.4.0, eslint-config-prettier@^6.3.0:
   version "6.4.0"
   resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-6.4.0.tgz#0a04f147e31d33c6c161b2dd0971418ac52d0477"
   integrity sha512-YrKucoFdc7SEko5Sxe4r6ixqXPDP1tunGw91POeZTTRKItf/AMFYt/YLEQtZMkR2LVpAVhcAcZgcWpm1oGPW7w==
   dependencies:
     get-stdin "^6.0.0"
-
-eslint-import-resolver-babel-plugin-root-import@1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/eslint-import-resolver-babel-plugin-root-import/-/eslint-import-resolver-babel-plugin-root-import-1.1.1.tgz#b060f1177557918389f7ed476e5b36a43854a381"
-  integrity sha512-ZZxdV9AxzL2WFVggDxZ36xodPg2+BTrkhhMf/of+BxSVh/GKLGCs17EDq5b61wqC7/oQsA2h1RtH1fV7HOUV/w==
-  dependencies:
-    eslint-import-resolver-node "^0.2.1"
-    json5 "^0.5.0"
-
-eslint-import-resolver-node@^0.2.1:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/eslint-import-resolver-node/-/eslint-import-resolver-node-0.2.3.tgz#5add8106e8c928db2cba232bcd9efa846e3da16c"
-  integrity sha1-Wt2BBujJKNssuiMrzZ76hG49oWw=
-  dependencies:
-    debug "^2.2.0"
-    object-assign "^4.0.1"
-    resolve "^1.1.6"
 
 eslint-import-resolver-node@^0.3.2:
   version "0.3.2"
@@ -3982,10 +3958,10 @@ eslint-plugin-react@^7.15.1:
     prop-types "^15.7.2"
     resolve "^1.12.0"
 
-eslint-plugin-you-dont-need-lodash-underscore@6.7.1:
-  version "6.7.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-you-dont-need-lodash-underscore/-/eslint-plugin-you-dont-need-lodash-underscore-6.7.1.tgz#506004add43daf10fd1ac719664199005ead671e"
-  integrity sha512-qzP/eR2uIwrX1bmKpnR4cJKknpqDkFwtaB1yvnp1XfkjhDjTo7eHZm3JJ/F++mB8HsLHnhvmp0YSpBg8PpIrLg==
+eslint-plugin-you-dont-need-lodash-underscore@6.8.0:
+  version "6.8.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-you-dont-need-lodash-underscore/-/eslint-plugin-you-dont-need-lodash-underscore-6.8.0.tgz#1ea0320299c08d8c611c321a6fd21ea87eaf9e70"
+  integrity sha512-JZ+v76MqNzP/ohRhtRnuCSIPEaY4dj58YAiJwSvEm3fVEwfjVVeNRHBea0oIcwAUcUGU08fEq75KeOKuE4AvCA==
   dependencies:
     kebab-case "^1.0.0"
 
@@ -6089,11 +6065,6 @@ json-stringify-safe@~5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/json-stringify-safe/-/json-stringify-safe-5.0.1.tgz#1296a2d58fd45f19a0f6ce01d65701e2c735b6eb"
   integrity sha1-Epai1Y/UXxmg9s4B1lcB4sc1tus=
-
-json5@^0.5.0:
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/json5/-/json5-0.5.1.tgz#1eade7acc012034ad84e2396767ead9fa5495821"
-  integrity sha1-Hq3nrMASA0rYTiOWdn6tn6VJWCE=
 
 json5@^1.0.1:
   version "1.0.1"
@@ -8854,17 +8825,17 @@ resolve@1.1.7:
   resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.1.7.tgz#203114d82ad2c5ed9e8e0411b3932875e889e97b"
   integrity sha1-IDEU2CrSxe2ejgQRs5ModeiJ6Xs=
 
-resolve@^1.1.6, resolve@^1.11.0, resolve@^1.3.2, resolve@^1.8.1:
-  version "1.11.1"
-  resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.11.1.tgz#ea10d8110376982fef578df8fc30b9ac30a07a3e"
-  integrity sha512-vIpgF6wfuJOZI7KKKSP+HmiKggadPQAdsp5HiC1mvqnfp0gF1vdwgBWZIdrVft9pgqoMFQN+R7BSWZiBxx+BBw==
-  dependencies:
-    path-parse "^1.0.6"
-
 resolve@^1.10.0, resolve@^1.5.0:
   version "1.10.0"
   resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.10.0.tgz#3bdaaeaf45cc07f375656dfd2e54ed0810b101ba"
   integrity sha512-3sUr9aq5OfSg2S9pNtPA9hL1FVEAjvfOC4leW0SNf/mpnaakz2a9femSd6LqAww2RaFctwyf1lCqnTHuF1rxDg==
+  dependencies:
+    path-parse "^1.0.6"
+
+resolve@^1.11.0, resolve@^1.3.2, resolve@^1.8.1:
+  version "1.11.1"
+  resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.11.1.tgz#ea10d8110376982fef578df8fc30b9ac30a07a3e"
+  integrity sha512-vIpgF6wfuJOZI7KKKSP+HmiKggadPQAdsp5HiC1mvqnfp0gF1vdwgBWZIdrVft9pgqoMFQN+R7BSWZiBxx+BBw==
   dependencies:
     path-parse "^1.0.6"
 
@@ -9692,16 +9663,6 @@ stylelint-prettier@1.1.1:
   integrity sha512-H7Zjb+9ufF0dTjjJ4qSbN/yeAV14BNUK5rl267lvYfmmW4Swlz4a2rfwqqgiN/YlntHXXzM6Nh/UXHFIvLI8zA==
   dependencies:
     prettier-linter-helpers "^1.0.0"
-
-stylelint-processor-styled-components@1.8.0:
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/stylelint-processor-styled-components/-/stylelint-processor-styled-components-1.8.0.tgz#7dc48c6c95f9c3c9daa49efa5f3d1be49e7296e2"
-  integrity sha512-sADydhLPwtR9YJBydlO6X209sjT3rG9nr7sn/cEFZtoeZF3tI60HtxIOFC12vVVMvpKFS+E0smMiKA6FcVZO9A==
-  dependencies:
-    "@babel/parser" "^7.0.0"
-    "@babel/traverse" "^7.0.0"
-    micromatch "^4.0.2"
-    postcss "^7.0.0"
 
 stylelint@11.1.1:
   version "11.1.1"

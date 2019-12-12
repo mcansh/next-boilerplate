@@ -45,9 +45,7 @@
     "type-fest": "0.8.1"
   },
   "devDependencies": {
-    "@zeit/next-source-maps": "0.0.4-canary.1",
-    "babel-plugin-root-import": "6.4.1",
-    "babel-plugin-styled-components": "1.10.6",
+    "@mcansh/eslint-config": "2.4.0",
     "@testing-library/jest-dom": "4.1.2",
     "@testing-library/react": "9.3.0",
     "@types/jest": "24.0.18",
@@ -57,18 +55,18 @@
     "@types/styled-components": "4.1.19",
     "@typescript-eslint/eslint-plugin": "2.3.3",
     "@typescript-eslint/parser": "2.3.3",
+    "@zeit/next-source-maps": "0.0.4-canary.1",
+    "babel-plugin-styled-components": "1.10.6",
     "eslint": "6.5.1",
     "eslint-config-airbnb": "18.0.1",
     "eslint-config-kentcdodds": "14.5.0",
-    "eslint-config-mcansh": "2.2.1",
     "eslint-config-prettier": "6.4.0",
-    "eslint-import-resolver-babel-plugin-root-import": "1.1.1",
     "eslint-import-resolver-typescript": "2.0.0",
     "eslint-plugin-import": "2.18.2",
     "eslint-plugin-prettier": "3.1.1",
-    "eslint-plugin-you-dont-need-lodash-underscore": "6.7.1",
-    "jest": "24.9.0",
+    "eslint-plugin-you-dont-need-lodash-underscore": "6.8.0",
     "husky": "3.0.8",
+    "jest": "24.9.0",
     "lint-staged": "9.4.2",
     "npm-run-all": "4.1.5",
     "prettier": "1.18.2",
@@ -77,7 +75,6 @@
     "stylelint-config-recommended": "3.0.0",
     "stylelint-config-styled-components": "0.1.1",
     "stylelint-prettier": "1.1.1",
-    "stylelint-processor-styled-components": "1.8.0",
     "typescript": "3.6.4"
   }
 }
