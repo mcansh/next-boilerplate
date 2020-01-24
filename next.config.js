@@ -45,6 +45,8 @@ const nextConfig = {
           options: {
             svgoConfig: {
               plugins: [
+                { removeViewBox: false },
+                { removeDimensions: true },
                 {
                   prefixIds: {
                     delim: '_',
