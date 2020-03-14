@@ -11,6 +11,7 @@ module.exports = {
           'next.config.js',
           'prettier.config.js',
           'stylelint.config.js',
+          'lint-staged.config.js',
         ],
       },
     ],
