@@ -4,7 +4,7 @@
 import {} from 'styled-components';
 import { CSSProp } from 'styled-components';
 
-import theme from '~/config';
+import { theme } from '~/config';
 
 declare module 'react' {
   interface Attributes {

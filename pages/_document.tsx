@@ -1,5 +1,6 @@
 import React from 'react';
 import Document, {
+  Html,
   Head,
   Main,
   NextScript,
@@ -7,7 +8,7 @@ import Document, {
 } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
 
-import CSP from '~/components/csp';
+import { CSP } from '~/components/csp';
 
 export default class MyDocument extends Document {
   public static async getInitialProps(ctx: DocumentContext) {
@@ -35,16 +36,15 @@ export default class MyDocument extends Document {
 
   public render() {
     return (
-      <html lang="en">
+      <Html lang="en">
         <Head>
           <CSP {...this.props} />
-          {this.props.styles}
         </Head>
         <body>
           <Main />
           <NextScript />
         </body>
-      </html>
+      </Html>
     );
   }
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import { render } from '@testing-library/react';
 
-import theme from '~/config';
+import { theme } from '~/config';
 
 const renderWithTheme = (children: React.ReactNode) =>
   render(

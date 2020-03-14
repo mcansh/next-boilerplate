@@ -25,4 +25,4 @@ const CSP = (props: DocumentProps) => {
   return <meta httpEquiv="Content-Security-Policy" content={csp} />;
 };
 
-export default CSP;
+export { CSP };

@@ -1,8 +1,8 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
 
-import theme from '~/config';
-import GlobalStyle from '~/components/styles/global-style';
+import { theme } from '~/config';
+import { GlobalStyle } from '~/components/styles/global-style';
 import { useServiceWorker } from '~/hooks/use-service-worker';
 
 interface LayoutProps {
@@ -22,4 +22,4 @@ const Layout = ({ children }: LayoutProps) => {
   );
 };
 
-export default Layout;
+export { Layout };
