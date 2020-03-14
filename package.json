@@ -29,7 +29,6 @@
     "*.{js,jsx,ts,tsx}": [
       "eslint --fix",
       "prettier --write",
-      "scripts/ts-precommit",
       "yarn lint:css",
       "jest"
     ]
