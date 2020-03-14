@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { render } from '~/test-utils';
+import { render } from '@testing-library/react';
 
 it('renders correctly', () => {
   const { container } = render(<h1>Hello World</h1>);
