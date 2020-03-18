@@ -1,18 +1,12 @@
 import React from 'react';
-import App from 'next/app';
+import { AppProps } from 'next/app';
 
 import { Layout } from '~/components/layout';
 
-class MyApp extends App {
-  public render() {
-    const { Component, pageProps } = this.props;
+const App = ({ Component, pageProps }: AppProps) => (
+  <Layout>
+    <Component {...pageProps} />
+  </Layout>
+);
 
-    return (
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    );
-  }
-}
-
-export default MyApp;
+export default App;
