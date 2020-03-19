@@ -21,8 +21,6 @@ const nextConfig = {
   crossOrigin: 'anonymous',
   target: 'serverless',
   experimental: {
-    css: true,
-    granularChunks: true,
     modern: true,
   },
   env: {

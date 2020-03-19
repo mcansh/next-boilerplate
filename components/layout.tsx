@@ -14,10 +14,8 @@ const Layout = ({ children }: LayoutProps) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <>
-        <GlobalStyle />
-        {children}
-      </>
+      <GlobalStyle />
+      {children}
     </ThemeProvider>
   );
 };
