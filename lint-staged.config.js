@@ -10,7 +10,7 @@ module.exports = {
     const filenamesForESLint = filenames.map(f => `"${f}"`).join(' ');
 
     return [
-      `eslint --fix ${filenamesForESLint}`,
+      `eslint --cache --fix ${filenamesForESLint}`,
       `prettier --write ${escapedFileNames}`,
       `jest --bail --findRelatedTests ${escapedFileNames}`,
     ];
