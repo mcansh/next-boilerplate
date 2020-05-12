@@ -22,6 +22,12 @@ const nextConfig = {
   target: 'serverless',
   experimental: {
     modern: true,
+    rewrites: () => [
+      {
+        source: '/sw.js',
+        destination: '/_next/static/sw.js',
+      },
+    ],
   },
   env: {
     VERSION: require('./package.json').version,
