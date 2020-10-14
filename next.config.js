@@ -1,5 +1,3 @@
-const path = require('path');
-
 const withSourceMaps = require('@zeit/next-source-maps')();
 const withOffline = require('next-offline');
 
@@ -22,19 +20,17 @@ const nextConfig = {
   target: 'serverless',
   experimental: {
     modern: true,
-    rewrites: () => [
-      {
-        source: '/sw.js',
-        destination: '/_next/static/sw.js',
-      },
-    ],
   },
+  rewrites: () => [
+    {
+      source: '/sw.js',
+      destination: '/_next/static/sw.js',
+    },
+  ],
   env: {
     VERSION: require('./package.json').version,
   },
   webpack: (config, { buildId, webpack }) => {
-    config.resolve.alias['~'] = path.resolve('./');
-
     config.plugins.push(
       new webpack.DefinePlugin({
         'process.env.BUILD_ID': JSON.stringify(buildId),

@@ -4,4 +4,4 @@ node_modules
 .next
 coverage
 .eslintcache
-
+.vercel
