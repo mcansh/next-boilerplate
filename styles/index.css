@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  * this would usually be defined in `@layer base`,
+  * but being that `#__next` doesnt actually appear
+  * in any of the files in the pages or components
+  * directories, it would be purged out
+*/
+html,
+body,
+#__next {
+  height: 100%;
+}
