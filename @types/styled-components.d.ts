@@ -2,9 +2,9 @@
 
 // Strongly type the styled-components theme
 import {} from 'styled-components';
-import { CSSProp } from 'styled-components';
+import type { CSSProp } from 'styled-components';
 
-import { theme } from '~/config';
+import type { theme } from '~/config';
 
 declare module 'react' {
   interface Attributes {
